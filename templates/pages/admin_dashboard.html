@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Панель управления</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    <style>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5cc9f;
+        }
+        .dashboard-title {
+            font-family: 'Times New Roman', serif;
+            color: #e5cc9f;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+        .dashboard-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-add-product {
+            background: #d4b26f;
+            color: #1a100a;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-add-product:hover {
+            background: #e5cc9f;
+            transform: scale(1.02);
+        }
+        .products-grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .product-card-dashboard {
+            background: #2b1b10;
+            border: 2px solid #e5cc9f;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .product-card-dashboard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .product-card-dashboard img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info-dashboard {
+            padding: 15px;
+        }
+        .product-info-dashboard h3 {
+            color: #e5cc9f;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            margin: 0 0 8px 0;
+        }
+        .product-info-dashboard .product-meta {
+            color: #a39072;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        .product-info-dashboard .product-price {
+            color: #e5cc9f;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'Times New Roman', serif;
+        }
+        .product-actions-dashboard {
+            display: flex;
+            gap: 10px;
+            padding: 12px 15px;
+            background: #1a100a;
+            border-top: 1px solid rgba(229, 204, 159, 0.2);
+        }
+        .btn-edit-product {
+            flex: 1;
+            background: #d4b26f;
+            color: #1a100a;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        .btn-edit-product:hover {
+            background: #e5cc9f;
+            transform: scale(1.02);
+        }
+        .btn-delete-product {
+            flex: 1;
+            background: #8b0000;
+            color: #fff;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .btn-delete-product:hover {
+            background: #cc0000;
+            transform: scale(1.02);
+        }
+        .empty-message {
+            text-align: center;
+            color: #a39072;
+            font-family: 'Times New Roman', serif;
+            font-size: 20px;
+            padding: 60px 20px;
+            border: 2px dashed #a39072;
+            border-radius: 8px;
+        }
+        .back-link {
+            color: #a39072;
+            text-decoration: none;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: #e5cc9f;
+        }
+    </style>
+</head>
+<body class="catalog-body">
+    
+    <input type="hidden" id="currentUserRole" value="admin">
+
+    <header class="catalog-navbar expanded-navbar">
+        <div class="nav-logo">Jugendstil Möbel</div>
+        <div class="nav-actions-block">
+            <a href="/admin/catalog" class="back-link">← Назад в каталог</a>
+            <a href="/logout" class="btn-logout-nav">Выйти</a>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">📦 Управление товарами</h1>
+            <div class="dashboard-actions">
+                <a href="/admin/add-product" class="btn-add-product">➕ Добавить товар</a>
+            </div>
+        </div>
+
+        <!-- Сетка товаров -->
+        <div id="dashboardProductsGrid" class="products-grid-dashboard"></div>
+    </main>
+
+    <script>
+        // Загрузка товаров для дашборда
+        async function loadDashboardProducts() {
+            const grid = document.getElementById('dashboardProductsGrid');
+            
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+                
+                if (!products || products.length === 0) {
+                    grid.innerHTML = `<div class="empty-message">📭 В коллекции пока нет товаров</div>`;
+                    return;
+                }
+
+                grid.innerHTML = '';
+                
+                products.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card-dashboard';
+                    card.id = `product-${item.id}`;
+                    
+                    card.innerHTML = `
+                        <img src="/static/uploads/${item.image}" alt="${item.title}" onerror="this.src='/static/uploads/default.jpg'">
+                        <div class="product-info-dashboard">
+                            <h3>${item.title}</h3>
+                            <div class="product-meta">${item.category} | ${item.color}</div>
+                            <div class="product-price">${item.price.toLocaleString()} ₽</div>
+                        </div>
+                        <div class="product-actions-dashboard">
+                            <a href="/admin/ismena/${item.id}" class="btn-edit-product">✏️ Редактировать</a>
+                            <button class="btn-delete-product" onclick="deleteProduct(${item.id})">🗑️ Удалить</button>
+                        </div>
+                    `;
+                    
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                grid.innerHTML = `<div class="empty-message" style="color: #cf5353;">⚠️ Ошибка загрузки товаров</div>`;
+            }
+        }
+
+        // Функция удаления товара
+        async function deleteProduct(id) {
+            if (!confirm('Вы уверены, что хотите удалить этот товар?')) return;
+            
+            try {
+                const response = await fetch(`/api/products/delete/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Товар успешно удалён!');
+                    const card = document.getElementById(`product-${id}`);
+                    if (card) {
+                        card.style.transition = 'all 0.3s';
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.9)';
+                        setTimeout(() => {
+                            card.remove();
+                            const grid = document.getElementById('dashboardProductsGrid');
+                            if (grid.children.length === 0) {
+                                grid.innerHTML = `<div class="empty-message">📭 В коллекции пока нет товаров</div>`;
+                            }
+                        }, 300);
+                    }
+                } else {
+                    alert('❌ Ошибка: ' + (result.message || 'Не удалось удалить товар'));
+                }
+            } catch (error) {
+                console.error('Ошибка удаления:', error);
+                alert('⚠️ Ошибка соединения с сервером');
+            }
+        }
+
+        // Загружаем товары при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadDashboardProducts);
+    </script>
+
+    <script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>

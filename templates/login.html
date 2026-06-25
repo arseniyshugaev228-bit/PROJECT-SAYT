@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Авторизация</title>
+    <link rel="stylesheet" href="/static/style.css?v=13">
+</head>
+<body>
+    <div class="auth-container">
+        <header class="auth-header">
+            <h1>Jugendstil Möbel</h1>
+            <p>Вход в панель управления</p>
+        </header>
+        
+        <form id="loginForm" class="auth-form">
+            <h2>Авторизация мастера</h2>
+            
+            <div class="input-group">
+                <label for="username">Логин</label>
+                <input type="text" id="username" placeholder="Введите ваш логин" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Ключ доступа</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Введите пароль" required>
+                    <button type="button" id="togglePassword" class="toggle-password-btn">👁</button>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-submit">Войти в систему</button>
+            <p id="errorMessage" class="error-msg"></p>
+        </form>
+
+        <div style="text-align: center; margin-top: 25px; width: 100%;">
+            <a href="/user/catalog" style="color: #a39072; font-size: 13px; text-decoration: none; font-family: 'Times New Roman', serif; letter-spacing: 1px; transition: color 0.2s;" onmouseover="this.style.color='#e5cc9f'" onmouseout="this.style.color='#a39072'">← Вернуться в магазин</a>
+        </div>
+    </div>
+
+    <script src="/static/site.js?v=13"></script>
+</body>
+</html>

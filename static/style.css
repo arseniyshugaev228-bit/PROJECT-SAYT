@@ -1,0 +1,2646 @@
+/* ===== 1. БАЗОВЫЕ И СИСТЕМНЫЕ НАСТРОЙКИ СТРАНИЦ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* Базовый глубокий цвет сукна для абсолютно всех страниц */
+body, .catalog-body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #0b1711 !important;
+    background-image: radial-gradient(circle at 50% 50%, #132219 0%, #040705 100%) !important;
+    background-attachment: fixed !important;
+}
+
+/* ОТДЕЛЬНЫЙ НЕУБИВАЕМЫЙ СЛОЙ ДЛЯ МЕРЦАЮЩЕЙ ЛАТУННОЙ ПЫЛИ */
+body::before, .catalog-body::before {
+    content: "" !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -1 !important; /* Уходит на задний план под текст и карточки */
+    pointer-events: none !important; /* Пропускает клики мыши сквозь себя */
+    
+    /* Слой 1: Центральное латунное свечение. Слой 2: Четкие круглые латунные точки */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(212, 178, 111, 0.12) 0%, transparent 10%),
+        radial-gradient(circle, rgba(229, 204, 159, 0.25) 0px, rgba(229, 204, 159, 0.25) 1px, transparent 2px) !important;
+    
+    background-size: 100% 100%, 32px 32px !important;
+    animation: goldShimmer 10s ease-in-out infinite alternate !important;
+}
+
+/* Эффект медленного парения латунной пыли в воздухе галереи */
+@keyframes goldShimmer {
+    0% {
+        filter: brightness(0.95);
+        background-position: 0% 0%, 0px 0px;
+    }
+    100% {
+        filter: brightness(1.1);
+        background-position: 0% 0%, 16px 16px; /* Сдвиг заставляет точки мягко плыть */
+    }
+}
+
+/* Специальные изолированные настройки для прокрутки каталогов, корзины и заказов */
+.catalog-body {
+    display: block !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    animation: storeEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes storeEntrance {
+    from { opacity: 0; filter: brightness(0.5); }
+    to { opacity: 1; filter: brightness(1); }
+}
+
+
+/* ===== 2. УСИЛЕННАЯ МАССИВНАЯ ПЛАШКА ПРИВЕТСТВИЯ (WELCOME CARD) ===== */
+.welcome-card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+    padding: 55px 45px; /* Сбалансированные внутренние отступы */
+    background: #2b1b10; /* Ореховое дерево */
+    border-radius: 4px; /* Строгие углы эпохи модерна */
+    
+    /* Массивная двойная окантовка из шлифованной латуни */
+    border: 3px solid #e5cc9f; /* Плотный внешний кант */
+    outline: 2px solid #e5cc9f;  /* Четкий внутренний кант */
+    outline-offset: -16px;       /* Раздвинутое широкое расстояние между рамками */
+    
+    /* Глубокая мебельная тень для создания объема */
+    box-shadow: 
+        0 35px 80px rgba(0, 0, 0, 0.9), 
+        inset 0 0 50px rgba(0, 0, 0, 0.7);
+        
+    text-align: center;
+    animation: cardEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes cardEntrance {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== 3. УЛУЧШЕННАЯ ТИПОГРАФИКА И ТЕКСТ ВЕЛКАМА ===== */
+.welcome-header {
+    margin-bottom: 25px;
+}
+
+.welcome-header h1 {
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    color: #e5cc9f; /* Латунный заголовок */
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.welcome-header p {
+    color: #a39072;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+}
+
+.welcome-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: #e5cc9f;
+    letter-spacing: 1.5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(229, 204, 159, 0.15);
+    padding-bottom: 12px;
+    padding-top: 20px;
+}
+
+.welcome-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #f5f0eb; /* Контрастный бежевый для чтения */
+    padding: 0 10px;
+}
+
+/* ===== 4. ФИРМЕННЫЕ ЛАТУННЫЕ КНОПКИ (КНОПКА ПЕРЕХОДА) ===== */
+.btn-submit {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+    padding: 15px;
+    background: #d4b26f; /* Латунь */
+    border: none;
+    border-radius: 2px;
+    color: #1a100a; /* Мореный дуб */
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-submit:hover {
+    background: #e5cc9f;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    transform: translateY(-1px);
+}
+
+.btn-submit:active {
+    transform: scale(0.99);
+}
+
+/* ===== 5. СИСТЕМА ПООЧЕРЕДНОГО ПРОЯВЛЕНИЯ ЭЛЕМЕНТОВ ===== */
+.anim-fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.35s; }
+.delay-3 { animation-delay: 0.55s; }
+.delay-4 { animation-delay: 0.8s; } /* Задержка для кнопки */
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== 6. СТИЛИ ДЛЯ ТРЯСКИ ПРИ ОШИБКЕ ВХОДА (НА БУДУЩЕЕ) ===== */
+.auth-container.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+}
+
+.error-msg {
+    color: #cf5353;
+    font-size: 13px;
+    margin-top: 15px;
+    text-align: center;
+    min-height: 20px;
+}
+/* =========================================================================
+   ЧАСТЬ 1: БАЗОВЫЕ СТРАНИЦЫ МАГАЗИНА И НАВИГАЦИОННАЯ ПАНЕЛЬ (ХЕДЕР)
+   ========================================================================= */
+
+/* Специальный сброс flex-центрирования body для страниц каталогов */
+.catalog-body {
+    display: block !important;
+    overflow-y: auto !important;
+    background: #0d1711 !important; /* Глубокое мебельное бархатное помещение */
+}
+
+/* Универсальная верхняя навигационная панель (Сквозной хедер) */
+.catalog-navbar.expanded-navbar {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+    background: #1a100a; /* Натуральное дерево (темный орех) */
+    border-bottom: 1px solid #d4b26f; /* Фирменный латунный кант */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+    gap: 20px;
+    flex-wrap: wrap; /* Корректный перенос на маленьких экранах */
+}
+
+/* Изящный латунный логотип бренда */
+.nav-logo {
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #e5cc9f;
+    text-transform: uppercase;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Центральный блок: Единая кнопка каталога и Поиск */
+.nav-search-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+    max-width: 850px;
+}
+/* =========================================================================
+   ЧАСТЬ 2: ЕДИНАЯ КНОПКА КАТАЛОГА И ВЫПАДАЮЩИЙ ДРОПДАУН ФИЛЬТРОВ
+   ========================================================================= */
+
+/* Контейнер для точного позиционирования скрытого меню */
+.catalog-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+/* Латунная кнопка «Каталог» в шапке */
+.nav-catalog-btn {
+    background: #d4b26f;
+    border: 1px solid #d4b26f;
+    color: #1a100a; /* Цвет темного дерева */
+    padding: 10px 20px;
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-catalog-btn:hover {
+    background: #e5cc9f;
+    border-color: #e5cc9f;
+}
+
+/* Скрытая выпадающая панель параметров (Изначально не видна) */
+.catalog-dropdown-menu {
+    display: none; 
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 280px;
+    background: #2b1b10; /* Ореховое дерево */
+    border: 1px solid #d4b26f;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    z-index: 200;
+}
+
+/* Класс активности, который JS будет включать при клике */
+.catalog-dropdown-menu.active {
+    display: block;
+    animation: dropdownFade 0.2s ease-out;
+}
+
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Группировка списков внутри меню */
+.dropdown-filter-group {
+    margin-bottom: 15px;
+}
+
+.dropdown-filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-filter-group label {
+    display: block;
+    color: #a39072; /* Матовая латунь */
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+/* Списки (селекты) внутри выпадающего меню */
+.dropdown-select {
+    width: 100%;
+    padding: 8px 12px;
+    background: #1a100a; /* Мореный дуб */
+    border: 1px solid #543f26;
+    color: #f5f0eb;
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dropdown-select:focus {
+    border-color: #d4b26f;
+}
+/* =========================================================================
+   ЧАСТЬ 3: СТРОКА ПОИСКА, КНОПКИ НАВИГАЦИИ И РАСКЛАДКА СЕТКИ ТОВАРОВ
+   ========================================================================= */
+
+/* Оболочка инпута поиска */
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 10px 85px 10px 15px; /* Большой отступ справа, чтобы текст не заходил под кнопку */
+    background: #1a100a; /* Мореный дуб */
+    border: 1px solid #543f26;
+    border-radius: 4px;
+    color: #f5f0eb;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-input-wrapper input:focus {
+    border-color: #d4b26f;
+}
+
+/* Латунная кнопка "Найти" внутри инпута */
+.btn-search-inside {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    bottom: 3px;
+    padding: 0 16px;
+    background: #d4b26f;
+    border: none;
+    color: #1a100a;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-search-inside:hover {
+    background: #e5cc9f;
+}
+
+/* Правый блок с кнопками действий (Заказы, Корзина, Admin) */
+.nav-actions-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-action-btn {
+    background: transparent;
+    border: 1px solid rgba(229, 204, 159, 0.4);
+    color: #e5cc9f;
+    padding: 8px 16px;
+    font-family: 'Times New Roman', serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-action-btn:hover {
+    background: rgba(212, 178, 111, 0.1);
+    border-color: #d4b26f;
+}
+
+.btn-logout-nav {
+    color: #cf5353;
+    text-decoration: none;
+    border: 1px solid #cf5353;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+.btn-logout-nav:hover {
+    background: #cf5353;
+    color: #ffffff;
+}
+
+/* Основной двухпанельный контейнер для каталога админа */
+.catalog-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Левая колонка для формы админа, правая для сетки */
+    gap: 40px;
+}
+
+/* Полноэкранная раскладка для каталога пользователя (без левой колонки админки) */
+.user-catalog-layout {
+    grid-template-columns: 1fr !important;
+    display: block !important;
+}
+
+/* Сетка карточек мебели */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+/* =========================================================================
+   ЧАСТЬ 4: КАРТОЧКИ ТОВАРОВ, БОКОВАЯ ПАНЕЛЬ И МОДАЛЬНОЕ ОКНО АДМИНА
+   ========================================================================= */
+
+/* Карточка товара в галерее */
+.product-card-admin {
+    background: #2b1b10; /* Ореховое дерево */
+    border: 1px solid #d4b26f; /* Латунный кант */
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+}
+.product-card-admin:hover { transform: translateY(-5px); }
+
+.card-image-placeholder {
+    height: 180px;
+    background: #1a100a; /* Мореный дуб */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    border-bottom: 1px solid rgba(212, 178, 111, 0.2);
+}
+
+.card-info-block { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.card-tag { font-size: 11px; text-transform: uppercase; color: #a39072; letter-spacing: 1px; margin-bottom: 5px; }
+.card-info-block h4 { color: #e5cc9f; font-size: 18px; font-weight: 400; margin-bottom: 10px; }
+.card-desc { color: #bfaea3; font-size: 13px; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+.card-footer-admin { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(212, 178, 111, 0.1); padding-top: 15px; }
+.card-price { color: #e5cc9f; font-size: 16px; font-weight: bold; }
+
+/* Боковое меню добавления мебели (для админ-панели) */
+.admin-panel-aside { position: sticky; top: 110px; height: fit-content; }
+.admin-form-card { background: #2b1b10; border: 1px solid #d4b26f; padding: 30px 25px; border-radius: 4px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+.admin-form-card h3 { color: #e5cc9f; text-transform: uppercase; font-size: 16px; letter-spacing: 1px; margin-bottom: 25px; border-bottom: 1px solid rgba(229, 204, 159, 0.2); padding-bottom: 10px; }
+.form-group-admin { margin-bottom: 18px; }
+.form-group-admin label { display: block; color: #a39072; font-size: 12px; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 1px; }
+.form-group-admin input, .form-group-admin select, .form-group-admin textarea { width: 100%; padding: 10px 12px; background: #1a100a; border: 1px solid #543f26; color: #f5f0eb; font-family: sans-serif; font-size: 14px; outline: none; }
+.form-group-admin input:focus, .form-group-admin select:focus, .form-group-admin textarea:focus { border-color: #d4b26f; }
+.btn-submit-admin { width: 100%; padding: 12px; background: #d4b26f; border: none; color: #1a100a; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background 0.2s; }
+.btn-submit-admin:hover { background: #e5cc9f; }
+
+/* СТИЛИ ДЛЯ ПОЛНОЭКРАННОГО ЗАТЕМНЕНИЯ МОДАЛЬНОГО ОКНА ВХОДА */
+.modal-overlay {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(13, 23, 17, 0.85); /* Затемнение в тонах зеленого бархата */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Показываем модальное окно, когда JS добавляет этот класс */
+.modal-overlay.active {
+    display: flex;
+    animation: fadeInModal 0.3s ease-out;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; } to { opacity: 1; }
+}
+
+/* Кнопка закрытия модалки (Латунный крестик в углу) */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #a39072;
+    font-size: 32px;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+.modal-close-btn:hover { color: #cf5353; }
+
+/* Адаптивный перенос хедера для маленьких экранов */
+@media (max-width: 992px) {
+    .nav-search-block { order: 3; width: 100%; max-width: 100%; }
+    .catalog-container { grid-template-columns: 1fr; }
+    .admin-panel-aside { position: relative; top: 0; }
+}
+/* =========================================================================
+   ФИКС ДЛЯ ВЫСТРАИВАНИЯ КВАДРАТНЫХ КАРТОЧЕК ПО ГОРИЗОНТАЛИ (РЯДАМИ)
+   ========================================================================= */
+
+/* Перестраиваем контейнер витрины пользователя в правильную сетку */
+.catalog-container.user-catalog-layout {
+    display: grid !important; /* Включаем сетку вместо block */
+    grid-template-columns: 1fr !important; /* Одна общая секция контента */
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Настройка сетки: карточки будут идти строго слева направо в ряд (по горизонтали) */
+.user-catalog-layout .products-grid {
+    display: grid !important;
+    /* auto-fill заставляет карточки вставать в горизонтальный ряд. 
+       Как только место в ряду кончается, следующая карточка переносится ниже */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 30px !important; /* Отступы между квадратиками */
+    width: 100%;
+}
+
+/* Возвращаем стандартный квадратный вид карточки для пользователя */
+.user-catalog-layout .product-card-admin {
+    display: flex !important;
+    flex-direction: column !important; /* Текст под картинкой, а не сбоку */
+    background: #2b1b10;
+    border: 1px solid #d4b26f;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%; /* Чтобы все квадратики были одной высоты */
+}
+/* =========================================================================
+   УЛУЧШЕННАЯ ПРЕМИАЛЬНАЯ СТИЛИЗАЦИЯ ДЛЯ ЗАГОЛОВКА КОЛЛЕКЦИИ
+   ========================================================================= */
+
+.user-catalog-layout .section-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px; /* Сделали крупнее и заметнее */
+    font-weight: 500;
+    color: #e5cc9f !important; /* Насыщенная матовая латунь */
+    text-transform: uppercase; /* Строгие заглавные буквы */
+    letter-spacing: 4px; /* Благородный широкий шаг между буквами */
+    text-align: left;
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+    
+    /* Тонкая латунная разделительная черта под заголовком */
+    border-bottom: 1px solid rgba(229, 204, 159, 0.25);
+    
+    /* Изящный объемный эффект тени и легкого свечения */
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.6),
+        0 0 15px rgba(229, 204, 159, 0.15);
+}
+/* =========================================================================
+   ЖЕСТКОЕ ГЕОМЕТРИЧЕСКОЕ ЦЕНТРОВАНИЕ СТРАНИЦЫ ЗАКАЗОВ (И ПО ЦЕНТРУ, И ПО СЕРЕДИНЕ)
+   ========================================================================= */
+
+/* Контейнер на всю свободную высоту экрана за вычетом высоты хедера */
+.orders-screen-wrapper {
+    width: 100%;
+    min-height: calc(100vh - 80px); /* Занимает всё пространство до низа экрана */
+    display: flex !important;
+    justify-content: center !important; /* Центрирует по горизонтали */
+    align-items: center !important;     /* Центрирует по вертикали (РОВНО ПО СЕРЕДИНЕ) */
+    padding: 20px;
+}
+
+/* Зона вывода данных */
+.orders-full-center-zone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Монументальная латунная рамка: стоит мёртво по середине экрана */
+.orders-screen-wrapper .empty-orders-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+    
+    background: #2b1b10; /* Ореховое дерево */
+    padding: 70px 50px; 
+    width: 100%;
+    max-width: 750px; /* Растянутая премиальная ширина */
+    margin: 0 auto !important; /* Сбрасываем верхние отступы, центровка идет за счет flex */
+    border-radius: 4px;
+    
+    /* Массивная двойная латунная окантовка */
+    border: 3px solid #e5cc9f;
+    outline: 2px solid #e5cc9f;
+    outline-offset: -18px; 
+    
+    box-shadow: 
+        0 40px 90px rgba(0, 0, 0, 0.9), 
+        inset 0 0 60px rgba(0, 0, 0, 0.7);
+}
+
+/* Крупный латунный текст внутри растянутой рамки */
+.orders-screen-wrapper .empty-msg-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 26px; 
+    color: #e5cc9f !important; /* Фирменная матовая латунь */
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    width: 100%;
+    text-align: center !important;
+}
+
+/* Кнопка "Перейти в магазин" внутри рамки */
+.orders-screen-wrapper .btn-submit {
+    width: 100%;
+    max-width: 300px; 
+    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Корректировка отображения карточек заказов (если они появятся) */
+.orders-screen-wrapper .order-item-card {
+    width: 100%;
+    max-width: 750px;
+    background: #2b1b10;
+    border: 1px solid #d4b26f;
+    border-radius: 4px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    overflow: hidden;
+    text-align: left;
+}
+/* =========================================================================
+   ЖЕСТКОЕ ГЕОМЕТРИЧЕСКОЕ ЦЕНТРОВАНИЕ СТРАНИЦЫ КОРЗИНЫ (И ПО ЦЕНТРУ, И ПО СЕРЕДИНЕ)
+   ========================================================================= */
+
+/* Контейнер корзины на всю свободную высоту экрана за вычетом шапки */
+.cart-screen-wrapper {
+    width: 100%;
+    min-height: calc(100vh - 80px); /* Занимает всё пространство до низа экрана */
+    display: flex !important;
+    justify-content: center !important; /* Центрирует по горизонтали */
+    align-items: center !important;     /* Центрирует по вертикали (РОВНО ПО СЕРЕДИНЕ) */
+    padding: 20px;
+}
+
+/* Зона вывода данных */
+.cart-full-center-zone {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Монументальная латунная рамка: стоит мёртво по середине экрана */
+.cart-screen-wrapper .cart-empty-bordered-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center; 
+    
+    background: #2b1b10; /* Ореховое дерево */
+    padding: 70px 50px; 
+    width: 100%;
+    max-width: 750px; /* Растянутая премиальная ширина как в заказах */
+    margin: 0 auto !important; /* Сбрасываем верхние отступы, центровка идет за счет flex */
+    border-radius: 4px;
+    
+    /* Массивная двойная латунная окантовка */
+    border: 3px solid #e5cc9f;
+    outline: 2px solid #e5cc9f;
+    outline-offset: -18px; 
+    
+    box-shadow: 
+        0 40px 90px rgba(0, 0, 0, 0.9), 
+        inset 0 0 60px rgba(0, 0, 0, 0.7);
+}
+
+/* Крупный латунный текст внутри растянутой рамки корзины */
+.cart-screen-wrapper .empty-msg-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 26px; 
+    color: #e5cc9f !important; /* Фирменная матовая латунь */
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    width: 100%;
+    text-align: center !important;
+}
+
+/* Кнопка "Перейти в магазин" внутри рамки корзины */
+.cart-screen-wrapper .btn-submit {
+    width: 100%;
+    max-width: 300px; 
+    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+/* =========================================================================
+   ИЗОЛИРОВАННЫЙ БЛОК СТИЛЕЙ ДЛЯ ОТДЕЛЬНОЙ СТРАНИЦЫ ВХОДА (LOGIN.HTML)
+   ========================================================================= */
+
+/* Карточка авторизации: жесткое центрирование по центру и середине экрана */
+.auth-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 420px;
+    padding: 50px 40px 45px;
+    background: #2b1b10; /* Элитное ореховое дерево */
+    border-radius: 4px; /* Строгие благородные углы модерна */
+    
+    /* Массивная двойная окантовка из шлифованной латуни */
+    border: 3px solid #e5cc9f;
+    outline: 2px solid #e5cc9f;
+    outline-offset: -14px; /* Расстояние между кантам */
+    
+    /* Глубокая мебельная тень для создания объема */
+    box-shadow: 
+        0 35px 80px rgba(0, 0, 0, 0.9),
+        inset 0 0 50px rgba(0, 0, 0, 0.7);
+        
+    /* Анимация плавного появления карточки при загрузке */
+    animation: cardEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Оформление заголовков внутри формы */
+.auth-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.auth-header h1 {
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: #e5cc9f; /* Матовая латунь */
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(229, 204, 159, 0.2);
+    padding-bottom: 12px;
+    display: inline-block;
+}
+
+.auth-header p {
+    color: #a39072;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    margin-top: 8px;
+}
+
+.auth-form h2 {
+    font-size: 12px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #a39072;
+    text-align: center;
+}
+
+/* Строгие латунные поля ввода */
+.input-group {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 0 10px;
+}
+
+.input-group label {
+    display: block;
+    color: #e5cc9f;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #1a100a; /* Цвет мореного дуба */
+    border: 1px solid #543f26;
+    border-radius: 2px;
+    color: #f5f0eb;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-group input::placeholder {
+    color: #543f26;
+}
+
+/* Мягкая латунная подсветка поля при клике */
+.input-group input:focus {
+    border-color: #d4b26f;
+    background: #21150d;
+    box-shadow: 0 0 10px rgba(212, 178, 111, 0.15);
+}
+
+/* ЗАЩИТА: Убираем белый фон при автозаполнении браузера */
+.input-group input:-webkit-autofill,
+.input-group input:-webkit-autofill:hover, 
+.input-group input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f5f0eb !important;
+    box-shadow: 0 0 0px 1000px #1a100a inset !important; /* Удерживает цвет мореного дуба */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Контейнер для поля пароля и кнопки-глазика */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 45px !important; /* Защитный отступ справа под глазик */
+}
+/* =========================================================================
+   ФИКС КНОПКИ ГЛАЗИКА В ПОЛЕ ВВОДА ПАРОЛЯ СТРАНИЦЫ АВТОРИЗАЦИИ
+   ========================================================================= */
+
+/* Абсолютное позиционирование глазика строго справа внутри поля ввода */
+.auth-container .toggle-password-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #a39072; /* Благородный цвет матовой латуни */
+    font-size: 19px;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    transition: color 0.2s ease;
+    z-index: 5; /* Чтобы кнопка была поверх текста пароля */
+}
+
+/* Мягкая подсветка латуни при наведении мыши */
+.auth-container .toggle-password-btn:hover {
+    color: #d4b26f;
+}
+
+/* Геометрические линии перекрестия (Х), накладывающиеся сверху при скрытии пароля */
+.auth-container .toggle-password-btn.hidden-mode::before,
+.auth-container .toggle-password-btn.hidden-mode::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    background-color: #cf5353; /* Четкий бордово-красный крест */
+    border-radius: 1px;
+}
+
+/* Наклоняем линии псевдоэлементов, формируя аккуратную "X" прямо по центру зрачка */
+.auth-container .toggle-password-btn.hidden-mode::before {
+    transform: rotate(45deg);
+}
+
+.auth-container .toggle-password-btn.hidden-mode::after {
+    transform: rotate(-45deg);
+}
+/* =========================================================================
+   ИСПРАВЛЕНИЕ И ЖЕСТКАЯ ЦЕНТРОВКА КНОПКИ ВХОДА НА СТРАНИЦЕ ЛОГИНА
+   ========================================================================= */
+
+/* Выравнивание и фиксация кнопки "Войти как мастер" строго по центру карточки */
+.auth-container .btn-submit {
+    width: 100%;
+    max-width: 320px; /* Ограничили ширину, чтобы она красиво сидела внутри рамок */
+    margin: 30px auto 0 !important; /* Автоматические отступы слева и справа центрируют её */
+    display: flex !important;
+    justify-content: center !important; /* Центрирует текст внутри самой кнопки */
+    align-items: center !important;
+    padding: 16px;
+    background: #d4b26f; /* Фирменная матовая латунь */
+    border: none;
+    border-radius: 2px;
+    color: #1a100a; /* Мореный дуб */
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* Эффект подсветки при наведении */
+.auth-container .btn-submit:hover {
+    background: #e5cc9f;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
+}
+
+/* =========================================================================
+   АНИМАЦИЯ БЕСШОВНОГО ПЕРЕХОДА И ПРОЯВЛЕНИЯ СТРАНИЦЫ МАГАЗИНА
+   ========================================================================= */
+
+/* Анимация растворения карточки приветствия при клике */
+.welcome-card.fade-out-exit {
+    animation: cardExit 0.6s cubic-bezier(0.4, 0, 1, 1) forwards !important;
+}
+
+@keyframes cardExit {
+    from { opacity: 1; transform: scale(1); filter: blur(0); }
+    to { opacity: 0; transform: scale(0.95); filter: blur(10px); }
+}
+
+/* Применяем плавное появление к телу страниц магазина */
+.catalog-body {
+    animation: storeEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0; /* Изначально скрываем, чтобы проявить через анимацию */
+}
+
+@keyframes storeEntrance {
+    from { 
+        opacity: 0; 
+        filter: brightness(0.4) contrast(0.8);
+    }
+    to { 
+        opacity: 1; 
+        filter: brightness(1) contrast(1);
+    }
+}
+/* =========================================================================
+   ИСПРАВЛЕННЫЙ БАРХАТНЫЙ ФОН С ЖИВЫМИ ЛАТУННЫМИ ПЕРЕЛИВАМИ И ИСКРАМИ
+   ========================================================================= */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden;
+    position: relative;
+    
+    /* Глубокий базовый цвет мебельного сукна */
+    background-color: #0b1711 !important;
+    
+    /* 3-слойная система переливов (без внешних картинок):
+       1. Мягкий латунный фокус света по центру
+       2. Полупрозрачные золотые микро-искры (шум градиента)
+       3. Общая изумрудная глубина темного зала */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(212, 178, 111, 0.15) 0%, transparent 60%),
+        radial-gradient(rgba(229, 204, 159, 0.2) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, #132219 0%, #040705 100%) !important;
+        
+    /* Размер для искр-пылинок (делаем их очень маленькими и аккуратными) */
+    background-size: 100% 100%, 24px 24px, 100% 100%;
+    
+    /* Запускаем бесконечную, медленную интерьерную пульсацию сияния */
+    animation: goldShimmer 8s ease-in-out infinite alternate;
+}
+
+/* Эффект мерцания и дыхания латунных микрочастиц */
+@keyframes goldShimmer {
+    0% {
+        filter: brightness(0.9) contrast(0.95);
+        background-position: 0% 0%, 0px 0px, 0% 0%;
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+        /* Микро-сдвиг узора создает эффект парящих в воздухе латунных искр */
+        background-position: 0% 0%, 12px 24px, 0% 0%;
+    }
+}
+
+/* Обязательный сброс для тела страниц магазина */
+.catalog-body {
+    display: block !important;
+    overflow-y: auto !important;
+    background: transparent !important; /* Проявляем наш мерцающий body */
+    animation: storeEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+}
+/* ===== 1. БАЗОВЫЕ И СИСТЕМНЫЕ НАСТРОЙКИ СТРАНИЦ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* ЖЕСТКИЙ ФИКС: Принудительно заливаем и само тело, и класс каталога одним фоном */
+body, .catalog-body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #0b1711 !important; /* Глубокое сукно шоурума */
+    
+    /* 3-слойная система переливов и латунной пыли */
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(212, 178, 111, 0.15) 0%, transparent 60%),
+        radial-gradient(rgba(229, 204, 159, 0.2) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, #132219 0%, #040705 100%) !important;
+        
+    /* Фиксированный размер для искр-пылинок (абсолютное совпадение на всех страницах) */
+    background-size: 100% 100%, 24px 24px, 100% 100%;
+    background-attachment: fixed !important; /* Удерживает узор на месте при скролле страниц */
+    
+    animation: goldShimmer 8s ease-in-out infinite alternate;
+}
+
+/* Эффект мерцания и дыхания латунных микрочастиц */
+@keyframes goldShimmer {
+    0% {
+        filter: brightness(0.9) contrast(0.95);
+        background-position: 0% 0%, 0px 0px, 0% 0%;
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+        background-position: 0% 0%, 12px 24px, 0% 0%;
+    }
+}
+
+/* Настройки отображения для прокрутки страниц магазина, корзины и заказов */
+.catalog-body {
+    display: block !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    animation: storeEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes storeEntrance {
+    from { 
+        opacity: 0; 
+        filter: brightness(0.4) contrast(0.8);
+    }
+    to { 
+        opacity: 1; 
+        filter: brightness(1) contrast(1);
+    }
+}
+/* =========================================================================
+   ЧИСТЫЙ И КРАСИВЫЙ ЛИЧНЫЙ КАБИНЕТ (РАМКА, ФИО В РЯД, ЦЕНТРОВКА КНОПКИ)
+   ========================================================================= */
+
+/* Жесткое полноэкранное центрирование шкатулки по центру и середине экрана */
+.profile-screen-wrapper {
+    width: 100% !important;
+    min-height: calc(100vh - 90px) !important;
+    display: flex !important;
+    justify-content: center !important; /* По центру */
+    align-items: center !important;     /* По середине */
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+/* ФИРМЕННАЯ МАССИВНАЯ ЛАТУННАЯ РАМКА ДЛЯ ВХОДА И РЕГИСТРАЦИИ */
+.profile-screen-wrapper .profile-bordered-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    
+    background: #2b1b10 !important; /* Ореховое дерево */
+    padding: 60px 45px 50px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    
+    /* Массивная двойная окантовка из шлифованной латуни */
+    border: 3px solid #e5cc9f !important;
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -18px !important;
+    
+    /* Глубокие мебельные тени для объема */
+    box-shadow: 
+        0 40px 90px rgba(0, 0, 0, 0.9), 
+        inset 0 0 60px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Формы внутри латунного бокса */
+.profile-bordered-box .profile-auth-form {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+    padding: 0 10px !important; /* Защитный отступ от латунного канта */
+}
+
+/* Вертикальные контейнеры для обычных полей */
+.input-group-profile {
+    margin-bottom: 20px;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.input-group-profile label {
+    color: #a39072;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-align: left !important;
+}
+
+/* Принудительно делаем все поля ввода одинаковой высоты */
+.input-group-profile input,
+.fio-field input {
+    width: 100% !important;
+    height: 46px !important; /* Фиксированная аккуратная высота */
+    padding: 0 16px !important;
+    background: #1a100a !important; /* Мореный дуб */
+    border: 1px solid #543f26 !important;
+    border-radius: 2px !important;
+    color: #f5f0eb !important;
+    font-size: 14px !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    transition: all 0.3s ease;
+}
+
+.input-group-profile input:focus,
+.fio-field input:focus {
+    border-color: #d4b26f !important;
+    box-shadow: 0 0 10px rgba(212, 178, 111, 0.15) !important;
+}
+
+/* ЖЕСТКИЙ ФИКС: Выстраивание Фамилии, Имени и Отчества СТРОГО в один ряд (по горизонтали) */
+.profile-auth-form .row-fio {
+    display: flex !important;
+    flex-direction: row !important; /* Строго горизонтально */
+    justify-content: space-between !important;
+    gap: 15px !important; /* Отступы между ячейками */
+    margin-bottom: 20px;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.row-fio .fio-field {
+    flex: 1 1 0% !important; /* Делит строку ровно на 3 одинаковые части */
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+.fio-field label {
+    color: #a39072;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-align: left !important;
+    font-weight: 600;
+}
+
+/* КРАСИВАЯ АККУРАТНАЯ КНОПКА СТРОГО ПО ЦЕНТРУ ШКАТУЛКИ */
+.profile-bordered-box .btn-submit {
+    width: 100% !important;
+    max-width: 280px !important; /* Ограничили ширину, чтобы она не была огромной */
+    height: 48px !important;
+    margin: 15px auto 0 !important; /* auto слева и справа центрируют кнопку */
+    display: flex !important;
+    justify-content: center !important; /* Текст по центру кнопки */
+    align-items: center !important;
+    background: #d4b26f !important; /* Латунь */
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.profile-bordered-box .btn-submit:hover {
+    background: #e5cc9f !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4) !important;
+}
+/* КРАСИВАЯ АККУРАТНАЯ КНОПКА СТРОГО ПО ЦЕНТРУ ШКАТУЛКИ */
+.profile-bordered-box .btn-submit {
+    width: 100% !important;
+    max-width: 280px !important; 
+    height: 48px !important;
+    margin: 40px auto 0 !important; /* УВЕЛИЧИЛИ ОТСТУП ДО 30px: Кнопка опустилась чутка ниже */
+    display: flex !important;
+    justify-content: center !important; 
+    align-items: center !important;
+    background: #d4b26f !important; 
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+/* =========================================================================
+   ИСПРАВЛЕННЫЙ КРЕСТИК ДЛЯ ГЛАЗИКА РЕГИСТРАЦИИ (БЕЗ ФЛЕКС-КОНФЛИКТОВ)
+   ========================================================================= */
+
+/* Делаем кнопку глазика обычным блоком для корректной работы псевдоэлементов */
+#toggleRegPassword {
+    display: block !important;
+    position: absolute !important;
+    right: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 24px !important;
+    height: 24px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: none !important;
+    color: #a39072 !important;
+    font-size: 19px !important;
+    cursor: pointer !important;
+    z-index: 5 !important;
+}
+
+/* Принудительно рисуем две линии латунного крестика X ровно по центру зрачка 👁 */
+#toggleRegPassword.hidden-mode::before,
+#toggleRegPassword.hidden-mode::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 11px !important; /* Ровно по середине высоты кнопки (24px / 2) */
+    left: 4px !important;  /* Центрирование по ширине */
+    width: 16px !important;
+    height: 2px !important;
+    background-color: #cf5353 !important; /* Благородный бордово-красный цвет */
+    border-radius: 1px !important;
+    z-index: 6 !important;
+}
+
+/* Наклоняем линии в разные стороны, чтобы получился ровный крест */
+#toggleRegPassword.hidden-mode::before {
+    transform: rotate(45deg) !important;
+}
+
+#toggleRegPassword.hidden-mode::after {
+    transform: rotate(-45deg) !important;
+}
+/* =========================================================================
+   ИЗОЛИРОВАННЫЙ ЖЕСТКИЙ ФИКС ДЛЯ СТРАНИЦЫ ВХОДА (РАМКА, ГЛАЗИК, КНОПКА)
+   ========================================================================= */
+
+.profile-bordered-box-login {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    background: #2b1b10 !important; /* Ореховое дерево */
+    padding: 55px 45px 45px !important;
+    width: 100% !important;
+    max-width: 450px !important; /* Компактная элитная шкатулка */
+    margin: 40px auto !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    border: 3px solid #e5cc9f !important;
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -16px !important;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(0, 0, 0, 0.7) !important;
+    overflow: visible !important;
+}
+
+/* ЖЕСТКИЙ ФИКС: ставим глазик входа внутрь поля ввода строго справа */
+#toggleLogPassword {
+    display: block !important;
+    position: absolute !important;
+    right: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 24px !important;
+    height: 24px !important;
+    line-height: 24px !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: none !important;
+    color: #a39072 !important;
+    font-size: 19px !important;
+    cursor: pointer !important;
+    z-index: 5 !important;
+    transition: color 0.2s ease;
+}
+
+#toggleLogPassword:hover {
+    color: #d4b26f !important;
+}
+
+/* Накладываем бордово-латунный крестик X ровно по центру зрачка при активации */
+#toggleLogPassword.hidden-mode::before,
+#toggleLogPassword.hidden-mode::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 11px !important; /* Половина высоты кнопки */
+    left: 4px !important;
+    width: 16px !important;
+    height: 2px !important;
+    background-color: #cf5353 !important;
+    border-radius: 1px !important;
+    z-index: 6 !important;
+}
+#toggleLogPassword.hidden-mode::before { transform: rotate(45deg) !important; }
+#toggleLogPassword.hidden-mode::after { transform: rotate(-45deg) !important; }
+
+/* Кнопка "Войти в салон" */
+.btn-submit-login {
+    width: 100% !important;
+    max-width: 280px !important;
+    height: 48px !important;
+    background: #d4b26f !important;
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.btn-submit-login:hover {
+    background: #e5cc9f !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4) !important;
+}
+/* =========================================================================
+   СТИЛИЗАЦИЯ И СУЖЕНИЕ КАРТОЧКИ АВТОРИЗОВАННОГО ПОЛЬЗОВАТЕЛЯ
+   ========================================================================= */
+
+/* Сужаем шкатулку личной карточки до аккуратных 450px */
+.profile-screen-wrapper .profile-bordered-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    
+    background: #2b1b10 !important; /* Ореховое дерево */
+    padding: 55px 45px 45px !important;
+    width: 100% !important;
+    max-width: 450px !important; /* Жесткий компактный размер по ТЗ */
+    margin: 0 auto !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    
+    /* Массивная двойная окантовка из шлифованной латуни */
+    border: 3px solid #e5cc9f !important;
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -18px !important;
+    
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Элегантный заголовок личного кабинета */
+.profile-bordered-box .profile-box-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #e5cc9f !important; /* Роскошная матовая латунь */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(229, 204, 159, 0.2);
+    padding-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Текстовый блок информации: аккуратное выравнивание строк */
+.profile-bordered-box .profile-info-content {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important; /* Одинаковые отступы между строками данных */
+    padding: 0 5px !important;
+    box-sizing: border-box;
+}
+
+/* Оформление самих строк с данными покупателя */
+.profile-info-content p {
+    color: #a39072 !important; /* Приглушенная латунь для подписей */
+    font-size: 14px !important;
+    letter-spacing: 1px;
+    text-align: left !important; /* Жестко выравниваем строки по левому краю */
+    border-bottom: 1px solid rgba(84, 63, 38, 0.4); /* Элегантная разделительная черта */
+    padding-bottom: 8px;
+    width: 100%;
+}
+
+/* Подсветка самих значений (ФИО, логина и телефона) */
+.profile-info-content p strong {
+    color: #e5cc9f !important; /* Яркая латунь для названий полей */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    display: block; /* Переносим значение на строку ниже для красоты */
+    margin-bottom: 4px;
+}
+
+/* Кнопка "Выйти из аккаунта" внутри суженной карточки */
+.profile-bordered-box .btn-submit {
+    width: 100% !important;
+    max-width: 280px !important; /* Компактная аккуратная кнопка */
+    height: 48px !important;
+    margin: 35px auto 0 !important; /* auto слева и справа держит её по центру */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: #d4b26f !important;
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+/* =========================================================================
+   ИСПАВЛЕННЫЕ ГИГАНТСКИЕ СТИЛИ ЭКРАНА ПРИВЕТСТВИЯ (МАКСИМАЛЬНЫЙ РАЗМЕР)
+   ========================================================================= */
+
+/* Исполинская латунная шкатулка: царский размах на 850px */
+.catalog-body .welcome-card {
+    width: 100% !important;
+    max-width: 850px !important; /* Развернули рамку до царских 850px */
+    padding: 90px 75px !important; /* Огромные, просторные внутренние отступы */
+    background: #2b1b10 !important;
+    border-radius: 6px !important;
+    margin: 0 auto !important;
+    
+    /* Усиленный, сверхмассивный тройной латунный кант */
+    border: 4px solid #e5cc9f !important;
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -25px !important; /* Глубокий, монументальный шаг канта */
+    
+    box-shadow: 
+        0 50px 110px rgba(0, 0, 0, 0.95), 
+        inset 0 0 90px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Высший заголовок бренда: колоссальный, читаемый издалека размер */
+.welcome-card .welcome-header h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 56px !important; /* Колоссальный размер названия мебельного дома */
+    font-weight: 500;
+    letter-spacing: 9px !important; /* Благородный, широчайший шаг букв */
+    color: #e5cc9f !important;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(229, 204, 159, 0.2);
+}
+
+/* Панель подзаголовка: крупная и выразительная */
+.welcome-card .welcome-header p {
+    color: #a39072 !important;
+    font-style: italic;
+    font-size: 19px !important; /* Увеличили подзаголовок до 19px */
+    letter-spacing: 3px !important;
+    margin-bottom: 50px;
+}
+
+/* Внутренний подзаголовок приглашения */
+.welcome-card .welcome-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px !important; /* Крупный интерьерный шрифт */
+    color: #e5cc9f !important;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+/* Главный пригласительный текст: размашистый и солидный */
+.welcome-card .welcome-text {
+    font-size: 19px !important; /* Увеличили текст описания до 19px */
+    line-height: 1.9 !important;
+    color: #f5f0eb !important;
+    max-width: 650px; /* Растянули текстовый блок, чтобы соответствовать рамке */
+    margin: 0 auto 50px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Парадная кнопка-портал "Перейти в магазин" */
+.welcome-card .btn-submit {
+    width: 100% !important;
+    max-width: 380px !important; /* Широкая, представительная кнопка */
+    height: 58px !important; /* Массивная парадная высота */
+    font-size: 15px !important; /* Крупный шрифт на кнопке */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+}
+
+.welcome-card .welcome-header p {
+    color: #a39072 !important;
+    font-style: italic;
+    font-size: 19px !important;
+    
+    /* Отступы для идеального баланса воздуха на исполинской карточке */
+    margin: 45px auto 50px !important; 
+    padding: 18px 0 !important;
+    
+    /* ОСТАВЛЯЕМ СТРОГО ДВЕ ЛИНИИ: СВЕРХУ И СНИЗУ ТЕКСТА */
+    border-top: 1px solid rgba(229, 204, 159, 0.3) !important;   /* Верхняя */
+    border-bottom: 1px solid rgba(229, 204, 159, 0.3) !important;/* Нижняя сразу под текстом */
+    
+    /* Полное обнуление любых других рамок или теней, которые могли двоиться */
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    
+    /* Удерживаем изящную ширину полос по центру */
+    display: block !important;
+    width: 60% !important; 
+    max-width: 500px !important;
+}
+/* =========================================================================
+   БЕЖЕВЫЕ (МАТОВАЯ ЛАТУНЬ) КНОПКИ В ШАПКЕ — СИНХРОНИЗАЦИЯ С КАТАЛОГОМ И НАЙТИ
+   ========================================================================= */
+
+/* Приводим кнопки шапки к идеальному бежевому стилю */
+.nav-actions-block .nav-action-btn {
+    font-size: 14px !important; 
+    padding: 10px 20px !important; /* Крупный, солидный размер */
+    color: #e5cc9f !important; /* Точный благородный бежевый цвет */
+    border: 1px solid rgba(229, 204, 159, 0.4) !important; /* Деликатная бежевая рамка */
+    background: transparent !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 2px;
+}
+
+/* Эффект мягкого бежевого сияния при наведении мыши */
+.nav-actions-block .nav-action-btn:hover {
+    color: #1a100a !important; /* Контрастный цвет морёного дуба для текста */
+    background: #e5cc9f !important; /* Кнопка полностью заливается благородным бежевым */
+    box-shadow: 0 0 15px rgba(229, 204, 159, 0.5) !important; /* Мягкое латунное свечение */
+    border-color: #e5cc9f !important;
+    transform: translateY(-1px);
+}
+
+/* Бордово-красную кнопку "Выйти" тоже синхронизируем по крупному размеру */
+.nav-actions-block .btn-logout-nav {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+    color: #cf5353 !important; 
+    border: 1px solid rgba(207, 83, 83, 0.4) !important;
+    background: transparent !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-actions-block .btn-logout-nav:hover {
+    color: #f5f0eb !important;
+    background: #cf5353 !important;
+    box-shadow: 0 0 15px rgba(207, 83, 83, 0.5) !important;
+    border-color: #cf5353 !important;
+}
+/* =========================================================================
+   ИЗОЛИРОВАННАЯ ИЗЯЩНАЯ ЗЕЛЕНАЯ КНОПКА "ADMIN" В ШАПКЕ МАГАЗИНА
+   ========================================================================= */
+
+/* Красим кнопку Admin в бархатно-зелёный цвет */
+.nav-actions-block #btnAdminModalOpen {
+    color: #4ade80 !important; /* Яркий, благородный изумрудно-зелёный цвет */
+    border: 1px solid rgba(74, 222, 128, 0.4) !important; /* Мягкий зелёный контур */
+    background: transparent !important;
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border-radius: 2px;
+}
+
+/* Эффект глубокого изумрудного сияния при наведении мыши */
+.nav-actions-block #btnAdminModalOpen:hover {
+    color: #0b1711 !important; /* Контрастный цвет темного сукна для текста */
+    background: #4ade80 !important; /* Кнопка полностью заливается зелёным */
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.6) !important; /* Магическое изумрудное свечение */
+    border-color: #4ade80 !important;
+    transform: translateY(-1px);
+}
+/* =========================================================================
+   ИСПРАВЛЕННЫЕ ГИГАНТСКИЕ СТИЛИ ДЛЯ КАРТОЧКИ ИНФОРМАЦИИ КЛИЕНТА (МАКСИМАЛЬНЫЙ РАЗМЕР)
+   ========================================================================= */
+
+/* Разворачиваем шкатулку личной карточки до солидных 650px */
+.profile-screen-wrapper .profile-bordered-box {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: #2b1b10 !important; /* Ореховое дерево */
+    padding: 70px 55px 60px !important; /* Огромные, просторные внутренние отступы */
+    width: 100% !important;
+    max-width: 650px !important; /* Увеличили размер до 650px для царского размаха */
+    margin: 0 auto !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    
+    /* Массивный двойной латунный кант */
+    border: 3px solid #e5cc9f !important;
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -20px !important; /* Глубокий шаг канта для монументальности */
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), inset 0 0 70px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Величественный заголовок личного кабинета */
+.profile-bordered-box .profile-box-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px !important; /* Огромный заголовок */
+    font-weight: 500;
+    color: #e5cc9f !important; /* Латунь */
+    text-transform: uppercase;
+    letter-spacing: 4px !important;
+    margin-bottom: 45px !important;
+    border-bottom: 1px solid rgba(229, 204, 159, 0.2);
+    padding-bottom: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Текстовые строки информации: размашистый шаг и крупный шрифт */
+.profile-bordered-box .profile-info-content {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 26px !important; /* Большие отступы между строками данных покупателя */
+    padding: 0 10px !important;
+    box-sizing: border-box;
+}
+
+.profile-info-content p {
+    color: #a39072 !important; /* Приглушенная латунь для подписей */
+    font-size: 19px !important; /* Солидный крупный размер текста значений */
+    letter-spacing: 1px;
+    text-align: left !important; /* Выравнивание строк по левому краю */
+    border-bottom: 1px solid rgba(84, 63, 38, 0.4); /* Линия разделения */
+    padding-bottom: 12px !important;
+    width: 100%;
+}
+
+/* Крупные подписи полей (Покупатель, Логин, Телефон) */
+.profile-info-content p strong {
+    color: #e5cc9f !important; /* Яркая латунь для названий категорий */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px !important; /* Увеличили подпись категории */
+    letter-spacing: 2px !important;
+    display: block; 
+    margin-bottom: 6px !important;
+}
+
+/* Массивная кнопка "Выйти из аккаунта" под гигантский стандарт */
+.profile-bordered-box .btn-submit {
+    width: 100% !important;
+    max-width: 340px !important; /* Широкая представительная кнопка */
+    height: 54px !important; /* Массивная высота */
+    margin: 45px auto 0 !important; /* Отодвинули пониже от текста данных */
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: #d4b26f !important; /* Наша латунь */
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important; /* Мореный дуб */
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.profile-bordered-box-register .input-group-profile label {
+    font-size: 20px !important; 
+    letter-spacing: 2px !important; 
+    margin-bottom: 10px !important; 
+    color: #e5cc9f !important; 
+}
+
+.profile-bordered-box-register .fio-field label {
+    font-size: 20px !important; 
+    letter-spacing: 1.5px !important;
+    margin-bottom: 10px !important;
+    color: #e5cc9f !important;
+}
+
+.auth-container {
+    max-width: 520px !important; 
+    padding: 65px 50px 55px !important; 
+    outline-offset: -16px !important; 
+}
+
+
+.auth-header h1 {
+    font-size: 34px !important; 
+    letter-spacing: 5px !important;
+}
+
+.auth-header p {
+    font-size: 15px !important; 
+    letter-spacing: 2px !important;
+}
+
+.auth-form h2 {
+    font-size: 14px !important; 
+    letter-spacing: 3px !important;
+    margin-bottom: 35px !important;
+}
+
+
+.auth-container .input-group label {
+    font-size: 14px !important; 
+    letter-spacing: 2px !important;
+    margin-bottom: 10px !important;
+    color: #e5cc9f !important; 
+}
+
+
+.auth-container .input-group input {
+    height: 48px !important;
+    font-size: 16px !important; 
+}
+
+
+.auth-container .btn-submit {
+    max-width: 320px !important; 
+    height: 52px !important; 
+    font-size: 14px !important;
+    letter-spacing: 2.5px !important;
+    margin-top: 40px !important; 
+}
+
+/* =========================================================================
+   СТИЛИ ДЛЯ РЕАЛЬНЫХ ФОТОГРАФИЙ МЕБЕЛИ В КАРТОЧКАХ ВИТРИНЫ
+   ========================================================================= */
+
+/* Фиксированный контейнер под пропорции фотографии */
+.card-image-container-fixed {
+    width: 100% !important;
+    height: 220px !important; /* Жесткая высота для зоны фото */
+    background: #1a100a !important; /* Цвет мореного дуба на случай долгой загрузки */
+    border-bottom: 2px solid #543f26;
+    overflow: hidden !important;
+    position: relative;
+    border-radius: 2px 2px 0 0;
+}
+
+/* Сама картинка мебели: вписывается без деформации пропорций */
+.product-gallery-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Защита от растягивания и сплющивания */
+    object-position: center !important; /* Центрируем фокус фото */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Элегантный зум фотографии при наведении мыши на карточку */
+.product-card-admin:hover .product-gallery-img {
+    transform: scale(1.06); /* Легкое интерактивное увеличение фото */
+}
+/* =========================================================================
+   ПРЕМИАЛЬНЫЙ ЛАТУННЫЙ ДИЗАЙН ДЛЯ КНОПКИ "В КОРЗИНУ"
+   ========================================================================= */
+
+/* Оформление бежевой латунной кнопки на витрине */
+.product-card-admin .btn-buy-item {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    
+    padding: 10px 22px !important; /* Удобный и солидный размер кнопки */
+    color: #e5cc9f !important; /* Наша фирменная матовая латунь */
+    background: transparent !important; /* Прозрачный фон внутри контура */
+    border: 1px solid rgba(229, 204, 159, 0.4) !important; /* Тонкая латунная рамка */
+    border-radius: 2px !important;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    outline: none;
+}
+
+/* Эффект благородного золотого свечения при наведении мыши */
+.product-card-admin .btn-buy-item:hover {
+    color: #1a100a !important; /* Контрастный цвет морёного дуба для текста */
+    background: #e5cc9f !important; /* Полная бежевая заливка */
+    border-color: #e5cc9f !important;
+    box-shadow: 0 0 15px rgba(229, 204, 159, 0.4) !important; /* Мягкая патина света */
+    transform: translateY(-1px); /* Легкий интерактивный подъем карточки */
+}
+
+/* На случай нажатия (клик) */
+.product-card-admin .btn-buy-item:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 5px rgba(229, 204, 159, 0.2) !important;
+}
+/* =========================================================================
+   ПОЛНОЭКРАННЫЙ МАРКЕТПЛЕЙС-МАКЕТ ДЛЯ СЕЙФА (КОРЗИНЫ) НА ВСЮ ВЫСОТУ
+   ========================================================================= */
+
+/* Задаем обертке жесткие границы от шапки до низа экрана */
+.cart-screen-wrapper {
+    width: 100% !important;
+    max-width: 100% !important; /* Растягиваем на всю ширину монитора */
+    min-height: calc(100vh - 72px) !important; /* Впритык к верхней панели */
+    margin: 0 !important;
+    padding: 30px 40px !important; /* Элегантные боковые просторные отступы */
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+/* МОНУМЕНТАЛЬНЫЙ СТИЛЬНЫЙ ЗАГОЛОВОК СВЕРХУ С ДВУМЯ ЛИНИЯМИ */
+.cart-screen-wrapper .section-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 34px !important;
+    font-weight: 500;
+    color: #e5cc9f !important; /* Наша латунь */
+    text-transform: uppercase;
+    letter-spacing: 5px !important;
+    text-align: center !important;
+    
+    /* Оформление линиями в стиле велкама */
+    margin: 0 auto 40px !important;
+    padding: 15px 0 !important;
+    border-top: 1px solid rgba(229, 204, 159, 0.3) !important;
+    border-bottom: 1px solid rgba(229, 204, 159, 0.3) !important;
+    width: 40% !important;
+    max-width: 600px !important;
+}
+
+/* ДВУХКОЛОНОЧНАЯ СЕТКА: Растягивается до самого низа монитора */
+.cart-screen-wrapper .cart-dynamic-layout {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: stretch !important; /* КРИТИЧЕСКИЙ ФИКС: заставляет обе колонки быть одинаковой высоты до пола! */
+    gap: 30px !important;
+    width: 100% !important;
+    flex: 1 !important; /* Заполняет всё пространство по вертикали */
+    box-sizing: border-box !important;
+}
+
+/* ЛЕВАЯ КОЛОНКА ТОВАРОВ: Растянута и имеет собственную латунную шкатулку */
+.cart-dynamic-layout .cart-items-column {
+    flex: 2.4 !important; /* Сделали шире под товары */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    background: rgba(43, 27, 16, 0.5) !important; /* Прозрачное ореховое дерево */
+    padding: 35px 25px !important;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    
+    /* Внешний кант маркетплейса */
+    border: 2px solid #e5cc9f !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+    overflow-y: auto !important; /* Если товаров очень много, внутри колонки появится прокрутка */
+}
+
+/* КАРТОЧКА ВНУТРИ СТОЛБИКА: Просторная и адаптивная */
+.cart-items-column .cart-item-row {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #2b1b10 !important;
+    padding: 20px 30px !important;
+    border-radius: 2px !important;
+    gap: 25px !important;
+    box-sizing: border-box !important;
+    border: 1px solid rgba(229, 204, 159, 0.3) !important; /* Облегченный внутренний контур */
+    transition: border-color 0.3s;
+}
+.cart-item-row:hover { border-color: #e5cc9f !important; }
+
+/* Миниатюры фото */
+.cart-item-row .cart-item-img-box {
+    width: 90px !important;
+    height: 90px !important;
+    min-width: 90px !important;
+    min-height: 90px !important;
+    border: 1px solid #543f26 !important;
+    overflow: hidden !important;
+}
+
+/* Текст описания мебели */
+.cart-item-info h4 {
+    font-size: 20px !important; /* Чуть крупнее */
+    color: #e5cc9f !important;
+    font-family: 'Times New Roman', serif;
+    margin-bottom: 5px;
+}
+
+/* ПРАВАЯ КОЛОНКА ЧЕКА: Сверхмассивная, широкая и растянутая до пола */
+.cart-dynamic-layout .cart-checkout-sidebar {
+    flex: 1 !important; /* Увеличили пропорцию ширины */
+    background: #2b1b10 !important; /* Плотное ореховое дерево */
+    padding: 50px 40px !important; /* Больше свободного воздуха */
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important; /* Позволяет прижать кнопку к низу шкатулки */
+    justify-content: flex-start !important;
+    
+    /* Двойной парадный кант Югендстиля */
+    border: 3px solid #e5cc9f !important;
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -16px !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), inset 0 0 60px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Заголовок чека расчёта */
+.cart-checkout-sidebar .sidebar-title {
+    color: #e5cc9f !important;
+    font-family: 'Times New Roman', serif;
+    font-size: 26px !important; /* Увеличен */
+    text-transform: uppercase;
+    letter-spacing: 3px !important;
+    border-bottom: 1px solid rgba(229, 204, 159, 0.2);
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    margin-top: 15px; /* Защитный отступ от канта */
+}
+
+/* Строки расчёта штук */
+.cart-checkout-sidebar .sidebar-summary-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    color: #f5f0eb !important;
+    font-size: 17px !important; /* Крупнее буквы */
+    margin-bottom: 22px;
+    padding: 0 10px;
+}
+
+/* Финальная цена */
+.cart-checkout-sidebar .sidebar-total-price {
+    margin-top: auto !important; /* ЖЕСТКИЙ ФИКС: толкает блок цены и кнопку к самому низу колонки! */
+    border-top: 1px solid rgba(229, 204, 159, 0.2);
+    padding-top: 25px;
+    margin-bottom: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.sidebar-total-price span {
+    font-size: 32px !important; /* Огромная итоговая цена */
+    color: #e5cc9f !important;
+    font-weight: bold !important;
+}
+
+/* МОНУМЕНТАЛЬНАЯ КНОПКА ОФОРМЛЕНИЯ ЗАКАЗА */
+.cart-checkout-sidebar .btn-submit {
+    width: 100% !important;
+    max-width: 100% !important; /* Растянута на всю ширину правой колонки */
+    height: 58px !important; /* Массивная парадная высота */
+    background: #d4b26f !important;
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 2.5px !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4) !important;
+}
+.cart-checkout-sidebar .btn-submit:hover { background: #e5cc9f !important; box-shadow: 0 15px 30px rgba(0,0,0,0.6) !important; }
+/* =========================================================================
+   УВЕЛИЧЕНИЕ ЭЛЕМЕНТОВ КАРТОЧКИ В КОРЗИНЕ (ФОТО, ШРИФТЫ, КНОПКИ, ЦЕНА)
+   ========================================================================= */
+
+/* 1. ГИГАНТСКАЯ ИНТЕРЬЕРНАЯ МИНИАТЮРА: Фотография стала заметно больше */
+.cart-items-column .cart-item-row .cart-item-img-box {
+    width: 130px !important;  /* Увеличили ширину фото с 90px до 130px */
+    height: 130px !important; /* Увеличили высоту фото с 90px до 130px */
+    min-width: 130px !important;
+    min-height: 130px !important;
+    border: 2px solid #543f26 !important; /* Усилили рамочку вокруг картинки */
+}
+
+/* 2. ШРИФТЫ ОПИСАНИЯ: Название и категория стали крупнее */
+.cart-item-row .cart-item-info h4 {
+    font-size: 24px !important; /* Название мебели стало крупным и весомым */
+    margin-bottom: 8px !important;
+}
+
+.cart-item-row .cart-item-info p {
+    font-size: 15px !important; /* Подпись категории и цвета стала читаемее */
+}
+
+/* 3. КНОПКИ КОЛИЧЕСТВА: Массивные латунные кубы выбора + и - */
+.cart-item-row .cart-quantity-controls {
+    gap: 16px !important; /* Больше воздуха между кнопками */
+}
+
+.cart-quantity-controls .btn-qty {
+    width: 42px !important;  /* Сделали кнопки + - крупными (было 34px) */
+    height: 42px !important;
+    font-size: 20px !important; /* Сами знаки плюс и минус стали большими */
+    border: 2px solid #543f26 !important; /* Плотный контур */
+}
+
+.cart-quantity-controls .qty-number {
+    font-size: 20px !important; /* Цифра количества штук между кнопками увеличена */
+    min-width: 32px !important;
+}
+
+/* 4. ЦЕНА ТОВАРА: Крупное итоговое начертание стоимости строки */
+.cart-item-row .cart-item-price-zone {
+    font-size: 24px !important; /* Стоимость конкретного товара стала крупной */
+    min-width: 160px !important;
+}
+/* =========================================================================
+   ИЗМЕНЕНИЕ СТИЛИСТИКИ НАДПИСЕЙ КОРЗИНЫ И ФИКС ОТОБРАЖЕНИЯ ФОТО
+   ========================================================================= */
+
+/* Заголовки мебели в корзине: винтажные и выразительные с засечками */
+.cart-item-info h4 {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 26px !important;
+    font-weight: 500 !important;
+    color: #e5cc9f !important; /* Роскошный бежево-латунный оттенок */
+    letter-spacing: 2px !important; /* Увеличили шаг букв для элитарности */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6) !important;
+    text-transform: none !important;
+}
+
+/* Стилистика подзаголовков (Категория | Цвет) */
+.cart-item-info .cart-item-meta {
+    font-family: 'Times New Roman', Times, serif !important;
+    color: #a39072 !important; /* Матовая глубокая патина */
+    font-size: 16px !important;
+    letter-spacing: 1.5px !important;
+    font-style: italic !important; /* Благородный наклон */
+    margin-top: 6px !important;
+}
+
+.cart-item-meta span {
+    color: rgba(229, 204, 159, 0.4) !important;
+    padding: 0 6px;
+    font-style: normal !important;
+}
+
+/* Цена внутри карточки: крупная, строгая и весомая */
+.cart-item-price-zone {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 26px !important;
+    font-weight: 600 !important;
+    color: #e5cc9f !important;
+    letter-spacing: 1px !important;
+}
+
+/* Фикс отображения картинок: убираем любые белые фоны */
+.cart-item-row .cart-item-img-box {
+    background: #1a100a !important; /* Темный фон под фото */
+    border: 2px solid #543f26 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.cart-product-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Вписывает фото без деформации */
+    display: block !important;
+    border: none !important;
+}
+/* =========================================================================
+   РОСКОШНАЯ СТИЛИСТИКА БЛОКА КОЛИЧЕСТВА (+ / - / ЦИФРА)
+   ========================================================================= */
+
+/* Кнопки плюс и минус: изящные латунные рамки без грубых системных контуров */
+.cart-quantity-controls .btn-qty {
+    width: 44px !important;
+    height: 44px !important;
+    background: #1a100a !important; /* Глубокий мореный дуб */
+    border: 1px solid rgba(229, 204, 159, 0.4) !important; /* Нежная латунная рамка */
+    color: #e5cc9f !important; /* Благородный бежевый цвет знаков */
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 24px !important; /* Крупные, тонкие знаки + и - */
+    font-weight: 300 !important;
+    cursor: pointer !important;
+    border-radius: 3px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6) !important;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+/* Эффект подсветки при наведении мыши на кнопки */
+.cart-quantity-controls .btn-qty:hover {
+    color: #1a100a !important; /* Цвет темного дерева для знака */
+    background: #e5cc9f !important; /* Полная бежевая заливка куба */
+    border-color: #e5cc9f !important;
+    box-shadow: 0 0 15px rgba(229, 204, 159, 0.4) !important;
+}
+
+/* Стилистика отображения самой цифры количества экспонатов */
+.cart-quantity-controls .qty-number {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 22px !important; /* Крупный интерьерный размер цифры */
+    font-weight: 600 !important;
+    color: #e5cc9f !important; /* Золотисто-бежевый оттенок */
+    min-width: 40px !important; /* Больше пространства для двухзначных чисел */
+    text-align: center !important;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8) !important;
+    user-select: none !important;
+}
+/* =========================================================================
+   ИЗЯЩНАЯ КНОПКА ВОЗВРАТА В МАГАЗИН ИЗ ЛЕВОГО УГЛА КОРЗИНЫ
+   ========================================================================= */
+
+/* Блок удержания ссылки в левом верхнем углу под навигацией */
+.cart-screen-wrapper .cart-back-link-block {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-start !important; /* Строго в левый угол */
+    margin-bottom: 10px !important;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+/* Стилистика самой бежево-латунной кнопки-ссылки */
+.cart-back-link-block .cart-back-to-shop-btn {
+    color: #a39072 !important; /* Цвет приглушенной матовой латуни */
+    font-size: 14px !important;
+    text-decoration: none !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase; /* Строгий регистр Югендстиля */
+    font-weight: 600;
+    transition: all 0.2s ease !important;
+    display: inline-block;
+}
+
+/* Мягкое золотое свечение при наведении мыши */
+.cart-back-link-block .cart-back-to-shop-btn:hover {
+    color: #e5cc9f !important; /* Перелив в сияющую латунь */
+    text-shadow: 0 0 10px rgba(229, 204, 159, 0.4);
+    transform: translateX(-2px); /* Легкий интерактивный сдвиг влево */
+}
+/* =========================================================================
+   СТИЛИ КНОПКИ ПОЛНОГО УДАЛЕНИЯ ТОВАРА ИЗ МЕБЕЛЬНОГО СЕЙФА
+   ========================================================================= */
+
+.cart-action-zone {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 100px !important;
+}
+
+/* Настройки благородной бордово-красной кнопки */
+.cart-action-zone .btn-remove-cart {
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 13px !important;
+    font-weight: bold !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    
+    padding: 10px 20px !important;
+    color: #cf5353 !important; /* Наш фирменный красный Сецессиона */
+    background: transparent !important;
+    border: 1px solid rgba(207, 83, 83, 0.4) !important; /* Тонкая рамка */
+    border-radius: 2px !important;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+
+.cart-action-zone .btn-remove-cart:hover {
+    color: #f5f0eb !important;
+    background: #cf5353 !important; 
+    border-color: #cf5353 !important;
+    box-shadow: 0 0 15px rgba(207, 83, 83, 0.4) !important;
+    transform: translateY(-1px);
+}
+
+
+
+.cart-quantity-controls .btn-qty {
+    width: 32px !important;  
+    height: 32px !important; 
+    font-size: 18px !important; 
+    border: 1px solid rgba(229, 204, 159, 0.4) !important; 
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6) !important; 
+}
+
+.cart-quantity-controls .qty-number {
+    font-size: 19px !important; 
+    min-width: 32px !important;
+    line-height: 32px !important;
+}
+
+/* =========================================================================
+   РОСКОШНАЯ ИЗОЛИРОВАННАЯ СТИЛИСТИКА ДЛЯ СТРАНИЦЫ ОФОРМЛЕНИЯ ЗАКАЗА (ZAKAZ)
+   ========================================================================= */
+
+/* Стилизация намертво заблокированных полей (ФИО и телефон покупателя) */
+.profile-auth-form-clean input[disabled] {
+    background: #150d08 !important; /* Глубокий тёмный мореный дуб */
+    border-color: #3d2c1a !important; /* Приглушённая латунная рамка */
+    color: #a39072 !important; /* Цвет благородной матовой патины */
+    cursor: not-allowed !important; /* Курсор запрета при наведении мыши */
+    user-select: none !important; /* Полный запрет выделения текста */
+    opacity: 0.65 !important;
+    box-shadow: none !important;
+}
+
+/* Фикс горизонтальной строки банковской карты: идеальное деление ячеек */
+.profile-auth-form-clean .row-fio {
+    display: flex !important;
+    flex-direction: row !important; /* Строго в одну линию слева направо */
+    justify-content: space-between !important;
+    gap: 15px !important; /* Чёткий отступ между ячейками ввода */
+    margin-bottom: 22px;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Распределяем ширину: номер карты шире, а Срок и CVC покороче */
+.profile-auth-form-clean .row-fio .fio-field {
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+/* Номер карты занимает 50% всей ширины ряда */
+.profile-auth-form-clean .row-fio .fio-field:nth-child(1) {
+    flex: 2 1 0% !important;
+}
+
+/* Срок и CVC делят оставшиеся 50% поровну */
+.profile-auth-form-clean .row-fio .fio-field:nth-child(2),
+.profile-auth-form-clean .row-fio .fio-field:nth-child(3) {
+    flex: 1 1 0% !important;
+}
+
+/* Настройки плейсхолдеров (подсказок) внутри инпутов карты и адреса */
+.profile-auth-form-clean input::placeholder {
+    color: rgba(163, 144, 114, 0.4) !important; /* Тусклое старое золото */
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Красный блок текста ошибки валидации, если что-то не заполнено */
+#checkoutErrorMessage.error-msg {
+    color: #cf5353 !important; /* Бордово-красный Сецессион */
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+}
+/* =========================================================================
+   ФИНАЛЬНЫЙ ПУЛЕНЕПРОБИВАЕМЫЙ ДИЗАЙН СТРАНИЦЫ ОФОРМЛЕНИЯ ЗАКАЗА (ZAKAZ)
+   ========================================================================= */
+
+/* Растягиваем шкатулку оформления до царских 750px и убираем ограничения */
+.profile-bordered-box-register {
+    width: 100% !important;
+    max-width: 750px !important; /* Сделали рамку шире для свободного ввода карты */
+    padding: 65px 55px 55px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+}
+
+/* ЖЕСТКИЙ ФИКС ДЛЯ ЗАБЛОКИРОВАННЫХ ПОЛЕЙ (ФИО И ТЕЛЕФОН): ЯРКИЕ, НО НА ЗАМКЕ */
+.profile-auth-form-clean input[disabled] {
+    background: #150d08 !important; /* Тёмный благородный мореный дуб */
+    border: 1px solid #3d2c1a !important; /* Старая приглушённая латунь */
+    color: #e5cc9f !important; /* УБРАЛИ ПОЛУПРОЗРАЧНОСТЬ: Текст теперь горит яркой латунью! */
+    opacity: 1 !important; /* Жестко зафиксировали полную непрозрачность букв */
+    cursor: not-allowed !important; /* Курсор запрета редактирования при наведении */
+    user-select: none !important; /* Защита от выделения мышкой */
+    box-shadow: none !important;
+    font-weight: 500 !important;
+}
+
+/* ФИКС СТРОКИ КАРТЫ: Выравнивание всех ячеек ввода (включая Срок ММ/ГГ) по одной линейке */
+.profile-auth-form-clean .row-fio {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end !important; /* Выравнивает инпуты и лабели строго по нижней кромке */
+    justify-content: space-between !important;
+    gap: 20px !important; /* Больше воздуха между ячейками */
+    margin-bottom: 30px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Выравниваем высоту всех полей ввода карты на один уровень */
+.profile-auth-form-clean .row-fio .fio-field input {
+    height: 48px !important; /* Жесткая парадная высота для каждого инпута карты */
+    font-size: 15px !important;
+    letter-spacing: 1px !important;
+    box-sizing: border-box !important;
+}
+
+/* ПАРАДНАЯ КНОПКА ДЕЙСТВИЯ "ОФОРМИТЬ ЗАКАЗ" ПО ЦЕНТРУ ШКАТУЛКИ */
+.profile-auth-form-clean .btn-container-fixed {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 40px !important; /* Отодвинули пониже от полей карты */
+}
+
+.profile-auth-form-clean .btn-submit-register {
+    width: 100% !important;
+    max-width: 340px !important; /* Сделали кнопку шире и представительнее */
+    height: 56px !important; /* Парадная массивная высота */
+    background: #d4b26f !important; /* Наша фирменная латунь */
+    border: none !important;
+    border-radius: 2px !important;
+    color: #1a100a !important; /* Мореный дуб для текста */
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2.5px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* Эффект перелива при наведении на финальную кнопку */
+.profile-auth-form-clean .btn-submit-register:hover {
+    background: #e5cc9f !important; /* Полное золотое сияние */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
+    transform: translateY(-1px);
+}
+/* =========================================================================
+   ИСПРАВЛЕННЫЙ ЕДИНЫЙ МОНОЛИТНЫЙ МАКЕТ СТРАНИЦЫ ЗАКАЗА В ОДНОЙ РАМКЕ
+   ========================================================================= */
+
+/* Общая рамка-шкатулка на 650px, собирающая все инпуты вместе */
+.profile-bordered-box-register {
+    width: 100% !important;
+    max-width: 650px !important;
+    padding: 60px 50px 50px !important;
+    background: #2b1b10 !important; /* Ореховое дерево */
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+    border: 3px solid #e5cc9f !important; /* Двойной латунный кант */
+    outline: 2px solid #e5cc9f !important;
+    outline-offset: -16px !important;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(0, 0, 0, 0.7) !important;
+    overflow: visible !important;
+}
+
+/* Принудительно убираем любые рамки с внутренних блоков, если они двоились */
+.profile-bordered-box-register .profile-auth-form-clean {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+/* ФИО и Телефон: Текст горит четкой латунью, но заблокирован от ввода */
+.profile-auth-form-clean input[disabled] {
+    background: #1a100a !important; /* Мореный дуб */
+    border: 1px solid #543f26 !important;
+    color: #e5cc9f !important; /* Яркий латунный шрифт */
+    opacity: 1 !important; /* Полная непрозрачность букв по ТЗ */
+    cursor: not-allowed !important; /* Значок запрета мыши */
+    user-select: none !important;
+    font-weight: 500 !important;
+}
+
+/* Идеальное горизонтальное выравнивание строки карты и инпута Срок ММ/ГГ */
+.profile-auth-form-clean .row-fio {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end !important; /* Выравнивание по нижней линии */
+    justify-content: space-between !important;
+    gap: 15px !important;
+    margin-bottom: 25px !important;
+    width: 100% !important;
+}
+
+/* Унификация высоты для всех инпутов, включая Срок и CVC */
+.profile-auth-form-clean .row-fio .fio-field input {
+    height: 46px !important; /* Жестко в один уровень с номером карты */
+    font-size: 14px !important;
+}
+
+/* Финальная латунная кнопка-портал */
+.profile-auth-form-clean .btn-container-fixed {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 35px !important;
+}
+
+.profile-auth-form-clean .btn-submit-register {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: 54px !important;
+    background: #d4b26f !important;
+    color: #1a100a !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    border-radius: 2px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+}
+/* Кнопка управления - зеленая */
+.btn-green {
+    color: #62c462 !important;
+    border-color: #62c462 !important;
+    background: rgba(98, 196, 98, 0.1) !important;
+    transition: all 0.3s ease !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 18px;
+    font-weight: bold !important
+}
+
+.btn-green:hover {
+    color: #ffffff !important;        /* Белые буквы при наведении */
+    background: #62c462 !important;   /* Зеленый фон при наведении */
+    border-color: #62c462 !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(98, 196, 98, 0.3);
+}
+
+.btn-cancel-order {
+    background: transparent !important;
+    color: #ff6b6b !important;
+    border: 2px solid #ff6b6b !important;
+    padding: 10px 24px !important;
+    border-radius: 6px !important;
+    font-family: 'Times New Roman', serif !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+}
+
+.btn-cancel-order:hover {
+    background: #ff6b6b !important;
+    color: #1a100a !important;
+    box-shadow: 0 0 25px rgba(255, 107, 107, 0.3);
+}
+
+
+.order-item-card {
+    width: 100%;
+    background: #2b1b10;
+    border: 2px solid #e5cc9f;
+    border-radius: 8px;
+    padding: 25px 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.order-item-card:hover {
+    box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+}
+
+.order-card-header {
+    font-size: 24px;
+    color: #e5cc9f;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(229, 204, 159, 0.2);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-card-body p {
+    font-size: 18px;
+    color: #a39072;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.order-card-body strong {
+    color: #e5cc9f;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-right: 5px;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    border-top: 1px solid rgba(229, 204, 159, 0.1);
+    padding-top: 15px;
+}
+
+.order-total {
+    font-size: 22px;
+    color: #e5cc9f;
+    font-weight: bold;
+    margin: 0;
+}
+
+.order-total strong {
+    color: #e5cc9f;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-right: 5px;
+}
+
+
+.cart-empty-bordered-box {
+    margin: 20px auto 0;
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    border: 2px solid #e5cc9f;
+    padding: 30px;
+    background: #2b1b10;
+    border-radius: 8px;
+}
+
+.empty-msg-text {
+    font-family: 'Times New Roman', serif;
+    font-size: 20px;
+    color: #e5cc9f;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}

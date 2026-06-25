@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Личный Кабинет</title>
+    <link rel="stylesheet" href="/static/style.css?v=16">
+</head>
+<body class="catalog-body">
+
+    <!-- Сквозной хедер магазина -->
+    <header class="catalog-navbar expanded-navbar">
+        <div class="nav-logo">Jugendstil Möbel</div>
+        <div class="nav-actions-block">
+            <button class="nav-action-btn">Заказы</button>
+            <button class="nav-action-btn">Корзина</button>
+            <button class="nav-action-btn">Профиль</button>
+            <a href="/logout" class="btn-logout-nav">Выйти</a>
+        </div>
+    </header>
+
+    <!-- Обертка абсолютного геометрического центрирования -->
+    <main class="profile-screen-wrapper" style="flex-direction: column; justify-content: flex-start; padding-top: 40px;">
+        
+        <!-- Кнопка-ссылка быстрого возврата на главную витрину из профиля -->
+        <div class="cart-back-link-block" style="max-width: 650px; margin: 0 auto 25px; width: 100%;">
+            <a href="/user/catalog" class="cart-back-to-shop-btn">← В главное меню</a>
+        </div>
+
+        <!-- Показываем личную карточку авторизованного клиента -->
+        <div class="profile-bordered-box">
+            <h2 class="profile-box-title">Личный Кабинет</h2>
+            <div class="profile-info-content">
+                <p><strong>Покупатель:</strong> <span style="color:#e5cc9f;">{{ session.get('fio', 'Не указан') }}</span></p>
+                <p><strong>Логин:</strong> {{ session.get('user', 'Не указан') }}</p>
+                <p><strong>Номер телефона:</strong> {{ session.get('phone', 'Не указан') }}</p>
+            </div>
+            <a href="/logout" class="btn-submit" style="text-decoration: none; margin-top: 40px;">Выйти из аккаунта</a>
+        </div>
+        
+    </main>
+
+    <script src="/static/site.js?v=16"></script>
+</body>
+</html>

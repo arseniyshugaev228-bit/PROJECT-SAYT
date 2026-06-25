@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Заказы</title>
+    <link rel="stylesheet" href="/static/style.css?v=888">
+</head>
+<body class="catalog-body">
+
+    <!-- Сквозной хедер магазина -->
+    <header class="catalog-navbar expanded-navbar">
+        <div class="nav-logo">Jugendstil Möbel</div>
+        <div class="nav-actions-block">
+            <button class="nav-action-btn" id="btnNavOrders">Заказы</button>
+            <button class="nav-action-btn" id="btnNavCart">Корзина</button>
+            <button class="nav-action-btn" id="btnNavProfile">Профиль</button>
+            <a href="/logout" class="btn-logout-nav">Выйти</a>
+        </div>
+    </header>
+
+    <!-- Контейнер экрана истории заказов -->
+    <main class="cart-screen-wrapper" style="align-items: center; justify-content: flex-start; padding-top: 50px; display: flex; flex-direction: column;">
+        
+        <!-- МОНУМЕНТАЛЬНЫЙ ЗАГОЛОВОК СВЕРХУ С ДВУМЯ ЛИНИЯМИ -->
+        <h2 class="section-title" style="text-align: center; margin-bottom: 45px; width: 100%;">Заказы</h2>
+
+        <!-- ЕДИНАЯ АККУРАТНАЯ ЛАТУННАЯ ШКАТУЛКА НА 750PX (Сюда JS выведет пустоту или карточки) -->
+        <div class="profile-bordered-box-register" style="max-width: 750px; width: 100%; box-sizing: border-box;">
+            <div id="ordersContainer" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+                <!-- Контейнер для динамической подгрузки данных -->
+            </div>
+        </div>
+        
+    </main>
+
+    <script src="/static/site.js?v=888"></script>
+</body>
+</html>

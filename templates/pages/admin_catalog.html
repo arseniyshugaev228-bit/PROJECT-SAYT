@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Админ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+</head>
+<body class="catalog-body">
+    
+    <!-- Скрытый маркер роли для site.js -->
+    <input type="hidden" id="currentUserRole" value="user">
+
+    <!-- Сквозной полноценный хедер магазина -->
+    <header class="catalog-navbar expanded-navbar">
+        <div class="nav-logo">Jugendstil Möbel</div>
+
+        <div class="nav-search-block">
+            <div class="catalog-menu-wrapper">
+                <button type="button" id="btnCatalogToggle" class="nav-catalog-btn">Каталог ▾</button>
+                
+                <!-- ИСПРАВЛЕНО: Полное выпадающее меню со всеми параметрами поиска -->
+                <div id="catalogDropdown" class="catalog-dropdown-menu">
+                    <div class="dropdown-filter-group">
+                        <label>Вид мебели</label>
+                        <select id="filterCategory" class="dropdown-select">
+                            <option value="all">Все виды</option>
+                            <option value="Кресла и Стулья">Кресла и Стулья</option>
+                            <option value="Шкафы">Шкафы</option>
+                            <option value="Столы">Столы</option>
+                            <option value="Диваны">Диваны</option>
+                        </select>
+                    </div>
+                    
+                    <div class="dropdown-filter-group">
+                        <label>Цвет древесины / обивки</label>
+                        <select id="filterColor" class="dropdown-select">
+                            <option value="all">Любой цвет</option>
+                            <option value="Орех">Орех</option>
+                            <option value="Мореный дуб">Мореный дуб</option>
+                            <option value="Зеленый бархат">Зеленый бархат</option>
+                            <option value="Светлое дерево">Светлое дерево</option>
+                        </select>
+                    </div>
+
+                    <div class="dropdown-filter-group">
+                        <label>Стоимость</label>
+                        <select id="filterPriceRange" class="dropdown-select">
+                            <option value="all">Любая цена</option>
+                            <option value="0-100000">до 100 000 ₽</option>
+                            <option value="100000-200000">100 000 - 200 000 ₽</option>
+                            <option value="200000+">от 200 000 ₽</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" placeholder="Поиск экспонатов...">
+                <button type="button" id="btnSearch" class="btn-search-inside">Найти</button>
+            </div>
+        </div>
+
+        <div class="nav-actions-block">
+            <button class="nav-action-btn">Заказы</button>
+            <button class="nav-action-btn">Корзина</button>
+            <button class="nav-action-btn" onclick="window.location.href='/admin/dashboard'">Профиль</button>
+            <button class="btn-green" onclick="window.location.href='/admin/dashboard'">Управление</button>
+            <a href="/welcome/user" class="btn-logout-nav" style="color: #ff6b6b; border-color: #ff6b6b;">Выйти</a>
+        </div>
+    </header>
+<input type="hidden" id="currentSessionUser" value="{{ session.get('user', 'Гость') }}">
+    <!-- Основная витрина -->
+    <main class="catalog-container user-catalog-layout">
+        <section class="catalog-content-section" style="width: 100%;">
+            <h1 class="section-title">Режим разработчика | Товары</h1>
+            
+            <!-- Сетка квадратных карточек мебели -->
+            <div id="productsGrid" class="products-grid"></div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Личный кабинет</title>
+    <link rel="stylesheet" href="/static/style.css?v=11">
+</head>
+<body class="catalog-body">
+    
+    <!-- Обертка для абсолютного геометрического центрирования -->
+    <main class="profile-screen-wrapper">
+        <div class="welcome-card text-center" style="max-width: 460px;">
+            <header class="welcome-header">
+                <h1 class="anim-fade-in">Личный Кабинет</h1>
+                <p class="anim-fade-in delay-1">Немецкая мебель высшего качества</p>
+            </header>
+            
+            <div class="welcome-content" style="border-top: 1px solid rgba(229, 204, 159, 0.15); padding-top: 25px;">
+                <h2 class="welcome-title anim-fade-in delay-2" style="border:none; padding:0; margin-bottom: 30px;">Добро пожаловать!</h2>
+                
+                <!-- Кнопка 1: Авторизация -->
+                <div class="anim-fade-in delay-3" style="margin-bottom: 20px;">
+                    <button type="button" id="btnGoToLogin" class="btn-submit" style="max-width: 100%;">Войти в личный кабинет</button>
+                </div>
+                
+                <!-- Кнопка 2: Регистрация -->
+                <div class="anim-fade-in delay-4" style="margin-bottom: 30px;">
+                    <button type="button" id="btnGoToRegister" class="btn-submit" style="max-width: 100%; background: transparent; border: 1px solid #d4b26f; color: #e5cc9f;">Создать новый аккаунт</button>
+                </div>
+
+                <!-- ИСПРАВЛЕНО: Кнопка-ссылка быстрого возврата на главную витрину магазина -->
+                <div class="anim-fade-in delay-5" style="text-align: center;">
+                    <a href="/user/catalog" style="color: #a39072; font-size: 13px; text-decoration: none; font-family: 'Times New Roman', serif; letter-spacing: 1px; transition: color 0.2s;" onmouseover="this.style.color='#e5cc9f'" onmouseout="this.style.color='#a39072'">← Вернуться в магазин</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/site.js?v=11"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Добавление товара</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    <style>
+        .add-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #2b1b10;
+            border: 2px solid #e5cc9f;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        .add-container h1 {
+            color: #e5cc9f;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .add-container .subtitle {
+            text-align: center;
+            color: #a39072;
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 22px;
+        }
+        .form-group label {
+            display: block;
+            color: #e5cc9f;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .form-group label .required {
+            color: #ff6b6b;
+            margin-left: 3px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1a100a;
+            border: 1px solid #a39072;
+            border-radius: 4px;
+            color: #e5cc9f;
+            font-size: 16px;
+            font-family: 'Times New Roman', serif;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e5cc9f;
+            box-shadow: 0 0 15px rgba(229, 204, 159, 0.1);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .form-group input[type="file"] {
+            padding: 10px;
+            background: #1a100a;
+            border: 1px dashed #a39072;
+            cursor: pointer;
+        }
+        .form-group input[type="file"]:hover {
+            border-color: #e5cc9f;
+        }
+        .form-group .file-info {
+            color: #a39072;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn-save {
+            flex: 1;
+            background: #d4b26f;
+            color: #1a100a;
+            border: none;
+            padding: 14px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+        .btn-save:hover {
+            background: #e5cc9f;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(229, 204, 159, 0.2);
+        }
+        .btn-cancel {
+            flex: 1;
+            background: #555;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-cancel:hover {
+            background: #777;
+            transform: scale(1.02);
+        }
+        .preview-image {
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+        .preview-image img {
+            max-width: 200px;
+            max-height: 150px;
+            border: 2px solid #a39072;
+            border-radius: 4px;
+            padding: 5px;
+            background: #1a100a;
+        }
+        .preview-image.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="catalog-body">
+
+    <header class="catalog-navbar expanded-navbar">
+        <div class="nav-logo">Jugendstil Möbel</div>
+        <div class="nav-actions-block">
+            <a href="/admin/dashboard" class="back-link" style="color: #a39072; text-decoration: none; font-family: 'Times New Roman', serif; font-size: 14px; transition: color 0.3s;" onmouseover="this.style.color='#e5cc9f'" onmouseout="this.style.color='#a39072'">← Назад в дашборд</a>
+            <a href="/logout" class="btn-logout-nav">Выйти</a>
+        </div>
+    </header>
+
+    <main class="add-container">
+        <h1>➕ Добавление товара</h1>
+        <p class="subtitle">Заполните все поля для добавления нового экспоната в коллекцию</p>
+
+        <form id="addForm" method="POST" action="/admin/add-product" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="title">Название товара <span class="required">*</span></label>
+                <input type="text" id="title" name="title" placeholder="Например: Кресло 'Власть Линий'" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Категория <span class="required">*</span></label>
+                <select id="category" name="category" required>
+                    <option value="">Выберите категорию...</option>
+                    <option value="Кресла и Стулья">Кресла и Стулья</option>
+                    <option value="Шкафы">Шкафы</option>
+                    <option value="Столы">Столы</option>
+                    <option value="Диваны">Диваны</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="color">Цвет / Материал <span class="required">*</span></label>
+                <input type="text" id="color" name="color" placeholder="Например: Зеленый бархат, Орех, Мореный дуб..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Цена (₽) <span class="required">*</span></label>
+                <input type="number" id="price" name="price" placeholder="Например: 145000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание <span class="required">*</span></label>
+                <textarea id="description" name="description" placeholder="Опишите товар, его особенности, материалы..." rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Изображение <span class="required">*</span></label>
+                <input type="file" id="image" name="image" accept="image/*" required onchange="previewImage(this)">
+                <div class="file-info">Поддерживаются форматы: JPG, PNG, JPEG, WEBP</div>
+                <div class="preview-image" id="previewContainer">
+                    <img id="preview" src="#" alt="Предпросмотр">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-save">💾 Добавить товар</button>
+                <a href="/admin/dashboard" class="btn-cancel">❌ Отмена</a>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // Предпросмотр изображения
+        function previewImage(input) {
+            const preview = document.getElementById('preview');
+            const container = document.getElementById('previewContainer');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    container.classList.add('show');
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                container.classList.remove('show');
+            }
+        }
+
+        // Валидация перед отправкой
+        document.getElementById('addForm').addEventListener('submit', function(e) {
+            const title = document.getElementById('title').value.trim();
+            const category = document.getElementById('category').value;
+            const color = document.getElementById('color').value.trim();
+            const price = document.getElementById('price').value;
+            const description = document.getElementById('description').value.trim();
+            const image = document.getElementById('image').value;
+
+            if (!title || !category || !color || !price || !description || !image) {
+                e.preventDefault();
+                alert('⚠️ Пожалуйста, заполните все обязательные поля!');
+            }
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>

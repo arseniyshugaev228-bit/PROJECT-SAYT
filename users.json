@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "fio": "Мастер Салона",
+    "login": "admin",
+    "password": "123",
+    "phone": "+7 (999) 999-99-99",
+    "role": "admin"
+  },
+  {
+    "id": 5001,
+    "fio": "Шугаев Арсений Юрьевич",
+    "login": "TakpoL",
+    "password": "qwerty1",
+    "phone": "+7 (910) 675-28-29",
+    "role": "user"
+  },
+  {
+    "id": 5002,
+    "fio": "Шугаев Арсений Юрьевич",
+    "login": "TakpoL2",
+    "password": "qwerty2",
+    "phone": "+7 993 747 89 63",
+    "role": "user"
+  }
+]

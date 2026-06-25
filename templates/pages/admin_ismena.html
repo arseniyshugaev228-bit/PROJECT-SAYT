@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Редактирование товара</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=2">
+    <style>
+        .edit-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #2b1b10;
+            border: 2px solid #e5cc9f;
+            border-radius: 12px;
+        }
+        .edit-container h1 {
+            color: #e5cc9f;
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            color: #a39072;
+            font-family: 'Times New Roman', serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 15px;
+            background: #1a100a;
+            border: 1px solid #a39072;
+            border-radius: 4px;
+            color: #e5cc9f;
+            font-size: 16px;
+            font-family: 'Times New Roman', serif;
+            box-sizing: border-box;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e5cc9f;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .btn-save {
+            flex: 1;
+            background: #d4b26f;
+            color: #1a100a;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-save:hover {
+            background: #e5cc9f;
+            transform: scale(1.02);
+        }
+        .btn-cancel {
+            flex: 1;
+            background: #555;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-cancel:hover {
+            background: #777;
+            transform: scale(1.02);
+        }
+        .current-image {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .current-image img {
+            max-width: 200px;
+            max-height: 150px;
+            border: 2px solid #a39072;
+            border-radius: 4px;
+        }
+        .current-image p {
+            color: #a39072;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body class="catalog-body">
+
+    <header class="catalog-navbar expanded-navbar">
+        <div class="nav-logo">Jugendstil Möbel</div>
+        <div class="nav-actions-block">
+            <a href="/admin/dashboard" class="back-link" style="color: #a39072; text-decoration: none;">← Назад в дашборд</a>
+            <a href="/logout" class="btn-logout-nav">Выйти</a>
+        </div>
+    </header>
+
+    <main class="edit-container">
+        <h1>✏️ Редактирование товара</h1>
+
+        <form id="editForm" method="POST" action="/admin/ismena/{{ product.id }}" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="title">Название товара</label>
+                <input type="text" id="title" name="title" value="{{ product.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Категория</label>
+                <select id="category" name="category" required>
+                    <option value="Кресла и Стулья" {% if product.category == 'Кресла и Стулья' %}selected{% endif %}>Кресла и Стулья</option>
+                    <option value="Шкафы" {% if product.category == 'Шкафы' %}selected{% endif %}>Шкафы</option>
+                    <option value="Столы" {% if product.category == 'Столы' %}selected{% endif %}>Столы</option>
+                    <option value="Диваны" {% if product.category == 'Диваны' %}selected{% endif %}>Диваны</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="color">Цвет/Материал</label>
+                <input type="text" id="color" name="color" value="{{ product.color }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Цена (₽)</label>
+                <input type="number" id="price" name="price" value="{{ product.price }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea id="description" name="description" rows="4" required>{{ product.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Текущее изображение</label>
+                <div class="current-image">
+                    <img src="/static/uploads/{{ product.image }}" alt="{{ product.title }}">
+                    <p>{{ product.image }}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Новое изображение (оставьте пустым, если не менять)</label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-save">💾 Сохранить изменения</button>
+                <a href="/admin/dashboard" class="btn-cancel">❌ Отмена</a>
+            </div>
+        </form>
+    </main>
+
+    <script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>

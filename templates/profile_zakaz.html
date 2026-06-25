@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Оформление заказа</title>
+    <link rel="stylesheet" href="/static/style.css?v=999">
+</head>
+<body class="catalog-body">
+
+    <!-- Обертка абсолютного геометрического центрирования -->
+    <main class="profile-screen-wrapper">
+        <!-- ЕДИНАЯ МОНОЛИТНАЯ ЛАТУННАЯ РАМКА ДЛЯ ВСЕХ ПОЛЕЙ -->
+        <div class="profile-bordered-box-register" style="max-width: 650px; width: 100%;">
+            <header class="auth-header" style="text-align: center;">
+                <h1>Jugendstil Möbel</h1>
+                <p>Оформление заказа экспонатов</p>
+            </header>
+
+            <!-- Форма со строгим ID без всяких action, запертая на фронтенде -->
+            <form id="orderCheckoutForm" class="profile-auth-form-clean">
+                
+                <!-- 1. Данные аккаунта из сессии -->
+                <div class="input-group-profile">
+                    <label>Покупатель (ФИО)</label>
+                    <input type="text" value="{{ session.get('fio', '') }}" disabled style="opacity: 1; color: #e5cc9f;">
+                </div>
+                
+                <div class="input-group-profile">
+                    <label>Контактный телефон</label>
+                    <input type="tel" value="{{ session.get('phone', '') }}" disabled style="opacity: 1; color: #e5cc9f;">
+                </div>
+                
+                <!-- 2. Ввод адреса доставки -->
+                <div class="input-group-profile">
+                    <label>Адрес доставки мебели</label>
+                    <input type="text" id="orderAddress" placeholder="г. Москва, ул. Арбат, д. 10, кв. 5" required>
+                </div>
+                
+                <!-- 3. Строка банковской карты -->
+                <div class="row-fio">
+                    <div class="fio-field" style="flex: 2 !important;">
+                        <label>Номер карты</label>
+                        <input type="text" id="cardNum" placeholder="2200 1100 4400 5500" maxlength="19" required>
+                    </div>
+                    <div class="fio-field">
+                        <label>Срок (ММ/ГГ)</label>
+                        <input type="text" id="cardDate" placeholder="12/29" maxlength="5" required>
+                    </div>
+                    <div class="fio-field">
+                        <label>CVC</label>
+                        <input type="password" id="cardCvc" placeholder="***" maxlength="3" required>
+                    </div>
+                </div>
+
+                <!-- 4. Парадная кнопка оформления -->
+                <div class="btn-container-fixed">
+                    <button type="submit" class="btn-submit-register">Оформить заказ</button>
+                </div>
+                
+                <p id="checkoutErrorMessage" class="error-msg" style="color: #cf5353; text-align: center; margin-top: 15px; font-weight: bold;"></p>
+            </form>
+
+            <div style="text-align: center; margin-top: 25px; width: 100%;">
+                <a href="/shop/cart" style="color: #a39072; font-size: 13px; text-decoration: none; display: inline-block;">← Вернуться в сейф корзины</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- АВТОНОМНЫЙ СКРИПТ: ШЛЕТ НАПРЯМУЮ НА /SAVE-ORDER И ЗАКЛИНИВАЕТ СТРАНИЦУ НА МЕСТЕ -->
+    <script>
+        document.getElementById('orderCheckoutForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Намертво блокируем перезагрузки и вылеты
+
+            const address = document.getElementById('orderAddress').value.trim();
+            const card = document.getElementById('cardNum').value.trim();
+            const date = document.getElementById('cardDate').value.trim();
+            const cvc = document.getElementById('cardCvc').value.trim();
+            const errorBlock = document.getElementById('checkoutErrorMessage');
+
+            if (!address || !card || !date || !cvc) {
+                errorBlock.textContent = "Пожалуйста, заполните все поля!";
+                return;
+            }
+
+            // Вытаскиваем товары, набранные покупателем
+            let cart = JSON.parse(localStorage.getItem('jugendstil_cart')) || [];
+            if (cart.length === 0) {
+                alert("Ваша корзина пуста! Вернитесь на витрину.");
+                return;
+            }
+
+            let totalPrice = 0;
+            cart.forEach(item => { totalPrice += item.price * item.quantity; });
+
+            try {
+                // Прямой выстрел на Flask без приставки /api
+                const response = await fetch('/save-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ address: address, items: cart, total: totalPrice })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    errorBlock.textContent = "";
+                    alert("ВАШ ЗАКАЗ УСПЕШНО ОФОРМЛЕН!");
+                    localStorage.removeItem('jugendstil_cart'); // Обнуляем мебельный сейф
+                    this.reset(); // Вычищаем инпуты карты, оставаясь тут же
+                } else {
+                    errorBlock.textContent = result.message;
+                }
+            } catch (err) {
+                errorBlock.textContent = "Ошибка связи с сервером салона.";
+            }
+        });
+    </script>
+
+</body>
+</html>

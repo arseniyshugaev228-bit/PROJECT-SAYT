@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Добро пожаловать</title>
+    <link rel="stylesheet" href="/static/style.css?v=100">
+</head>
+<body>
+    
+    <!-- Карточка приветствия гостя -->
+    <div class="welcome-card">
+        <header class="welcome-header">
+            <h1 class="anim-fade-in">Jugendstil Möbel</h1>
+            <p class="anim-fade-in delay-1">Магазин немецкой мебели стиля Jugendstil наивысшего качества</p>
+        </header>
+        
+        <div class="welcome-content">
+            <h2 class="welcome-title anim-fade-in delay-2">Добро пожаловать!</h2>
+            <p class="welcome-text anim-fade-in delay-3">
+                Вам дано на выбор множество немецкой мебели стиля Jugendstil. Приятного пользования нашим сайтом.
+            </p>
+            
+            <!-- Новая плавно проявляющаяся кнопка перехода в магазин -->
+            <div class="anim-fade-in delay-4" style="margin-top: 30px;">
+                <button type="button" id="btnEnterShop" class="btn-submit">Войти в магазин</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Единый файл скриптов -->
+    <script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>

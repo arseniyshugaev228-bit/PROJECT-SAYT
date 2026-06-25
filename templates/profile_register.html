@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Регистрация</title>
+    <link rel="stylesheet" href="/static/style.css?v=9999">
+</head>
+<body class="catalog-body">
+
+    <!-- Обертка абсолютного геометрического центрирования -->
+    <main class="profile-screen-wrapper">
+        <!-- ЕДИНАЯ МОНОЛИТНАЯ ЛАТУННАЯ РАМКА ДЛЯ ВСЕХ ПОЛЕЙ -->
+        <div class="profile-bordered-box-register" style="max-width: 600px; width: 100%;">
+            <header class="auth-header" style="text-align: center;">
+                <h1>Jugendstil Möbel</h1>
+                <p>Регистрация нового покупателя</p>
+            </header>
+
+            
+            <form action="/profile_register" method="POST" class="profile-auth-form-clean">
+
+                
+                <div class="input-group-profile">
+                    <label>Фамилия</label>
+                    <input type="text" name="last_name" placeholder="Иванов" required>
+                </div>
+
+                <div class="input-group-profile">
+                    <label>Имя</label>
+                    <input type="text" name="first_name" placeholder="Иван" required>
+                </div>
+
+                <div class="input-group-profile">
+                    <label>Отчество</label>
+                    <input type="text" name="middle_name" placeholder="Иванович">
+                </div>
+
+                <!-- ИСПРАВЛЕНО: Чистое поле Логин вместо Email -->
+                <div class="input-group-profile">
+                    <label>Логин</label>
+                    <input type="text" name="login" placeholder="Введите ваш логин" required>
+                </div>
+
+                <div class="input-group-profile" style="position: relative;">
+                    <label>Пароль</label>
+                    <input type="password" id="regPassword" name="password" placeholder="••••••••" required>
+                    <button type="button" id="toggleRegPassword" class="btn-toggle-eye"></button>
+                </div>
+
+                <div class="input-group-profile">
+                    <label>Номер телефона</label>
+                    <input type="tel" name="phone" placeholder="+7 (999) 111-22-33" required>
+                </div>
+
+                <!-- Парадная кнопка оформления с типом submit -->
+                <div class="btn-container-fixed">
+                    <button type="submit" class="btn-submit-register">Зарегистрироваться</button>
+                </div>
+            </form>
+
+            <div style="text-align: center; margin-top: 25px; width: 100%;">
+                <a href="/user/profile" style="color: #a39072; font-size: 13px; text-decoration: none; display: inline-block;">← Назад к выбору действий</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Скрипт сайта подключается только для работы латунного глазика пароля -->
+    <script src="/static/site.js?v=9999"></script>
+</body>
+</html>

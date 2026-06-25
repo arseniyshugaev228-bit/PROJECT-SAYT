@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugendstil Möbel - Вход Администратора</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Монументальная латунная карточка приветствия мастера -->
+    <div class="welcome-card">
+        <header class="welcome-header">
+            <h1 class="anim-fade-in">Jugendstil Möbel</h1>
+            <p class="anim-fade-in delay-1">Панель управления мебельным домом</p>
+        </header>
+        
+        <div class="welcome-content">
+            <h2 class="welcome-title anim-fade-in delay-2">Добро пожаловать, Admin!</h2>
+            <p class="welcome-text anim-fade-in delay-3">
+                Авторизация прошла успешно. Панель для управления товаров в твоём распоряжении!
+            </p>
+            
+            <div class="anim-fade-in delay-4" style="margin-top: 30px;">
+                <!-- КНОПКА С ПРЯМЫМ ПЕРЕХОДОМ -->
+                <button type="button" id="btnEnterAdminShop" class="btn-submit" onclick="window.location.href='/admin/catalog'">Открыть магазин</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='site.js') }}"></script>
+</body>
+</html>
