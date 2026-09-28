@@ -1,4 +1,4 @@
-// Обработка отправки формы на бэкенд Flask
+
 document.getElementById('loginForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 

@@ -1,8 +1,10 @@
 import os
+from flask_cors import CORS
 import json
 from flask import Flask, render_template, request, jsonify, session, redirect
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "jugendstil_secret_key_1900_secession"
 
 # Системные пути к JSON-файлам базы данных
